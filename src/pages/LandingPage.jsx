@@ -87,6 +87,16 @@ export default function LandingPage() {
         }
     };
 
+    const onRemove = (id, type) => {
+        if (type === 'future') {
+            setFutureExpenses(prev => prev.filter(e => e.id !== id))
+        } else if (type === 'budget') {
+            setBudgetedExpenses(prev => prev.filter(e => e.id !== id));
+        } else {
+            setPastExpenses(prev => prev.filter(e => e.id !== id));
+        }
+    }
+
     const updateBudgetUsed = (id, used) => {
         setBudgetedExpenses(prev => prev.map(e => e.id === id ? {...e, used: Number(used)} : e));
     };
@@ -125,16 +135,16 @@ export default function LandingPage() {
                                 type: 'number',
                                 style: {fontSize: 20},
                             },
-                        }}
-                        InputLabelProps={{
-                            style: {color: '#666'},
-                        }}
-                        InputProps={{
-                            sx: {
-                                color: 'text.primary',
-                                backgroundColor: 'background.default',
-                                '& fieldset': {
-                                    borderColor: 'divider',
+                            inputLabel: {
+                                style: {color: "#666",},
+                            },
+                            input: {
+                                sx: {
+                                    color: 'text.primary',
+                                    backgroundColor: 'background.default',
+                                    '& fieldset': {
+                                        borderColor: 'divider',
+                                    },
                                 },
                             },
                         }}
@@ -151,6 +161,7 @@ export default function LandingPage() {
                     type="future"
                     markAsPaid={markAsPaid}
                     addItem={(entry) => setFutureExpenses(prev => [...prev, entry])}
+                    onRemove={onRemove}
                 />
 
                 {/* Budgeted Expenses */}
@@ -161,6 +172,7 @@ export default function LandingPage() {
                     markAsPaid={markAsPaid}
                     updateBudgetUsed={updateBudgetUsed}
                     addItem={(entry) => setBudgetedExpenses(prev => [...prev, entry])}
+                    onRemove={onRemove}
                 />
 
                 {/* Past Expenses */}
@@ -168,6 +180,7 @@ export default function LandingPage() {
                 <ExpenseTable
                     items={pastExpenses}
                     type="past"
+                    onRemove={onRemove}
                 />
             </Container>
         </ThemeProvider>
