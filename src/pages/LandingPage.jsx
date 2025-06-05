@@ -1,12 +1,13 @@
 import {
     Box, Container, Typography, TextField, Table, TableBody,
-    TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, ThemeProvider, createTheme
+    TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, ThemeProvider, createTheme, Button
 } from '@mui/material';
 import {useState, useEffect} from 'react';
 import {Delete, Done} from '@mui/icons-material';
 import ExpenseTable from "../components/ExpenseTable.jsx";
 import {v4} from 'uuid';
 
+const version = 1;
 
 const darkTheme = createTheme({
     palette: {
@@ -65,10 +66,17 @@ export default function LandingPage() {
     );
 
     useEffect(() => {
-        saveState({availableBalance, futureExpenses, budgetedExpenses, pastExpenses});
+        saveState({availableBalance, futureExpenses, budgetedExpenses, pastExpenses, version});
     }, [availableBalance, futureExpenses, budgetedExpenses, pastExpenses]);
 
     const actualBalance = calculateActualBalance(availableBalance, futureExpenses, budgetedExpenses);
+
+    const reset = () => {
+        setAvailableBalance(0);
+        setFutureExpenses([]);
+        setBudgetedExpenses([]);
+        setPastExpenses([])
+    }
 
     const markAsPaid = (id, type) => {
         if (type === 'future') {
@@ -101,20 +109,43 @@ export default function LandingPage() {
         setBudgetedExpenses(prev => prev.map(e => e.id === id ? {...e, used: Number(used)} : e));
     };
 
+    const titles = [
+        {
+            title: "You're doing a great job!",
+            min: 1500,
+        },
+        {
+            title: "You've got some, use it carefully",
+            min: 1000,
+        },
+        {
+            title: "Whoops! Only emergencies!",
+            min: 200,
+        },
+        {
+            title: "Hold up tiger! Don't spend!!",
+            min: 50,
+        },
+    ];
+
+    let title = "You fucking donkey. Don't spend.";
+    for (let option of titles) {
+        if (actualBalance > option.min) {
+            title = option.title;
+            break;
+        }
+    }
+
+    if (actualBalance === 0) {
+        title = "Perfectly balanced..."
+    }
+
     return (
         <ThemeProvider theme={darkTheme}>
             <Container maxWidth="md" sx={{py: 6}}>
-                {
-                    actualBalance > 0 ? (
-                        <Typography variant="h2" align="center" gutterBottom>
-                            You're doing a great job!
-                        </Typography>
-                    ) : (
-                        <Typography variant="h4" align="center" gutterBottom>
-                            You fucking donkey. Don't spend money.
-                        </Typography>
-                    )
-                }
+                <Typography variant="h3" align="center" gutterBottom>
+                    {title}
+                </Typography>
 
                 {/* Actual Balance */}
                 <Paper elevation={3} sx={{p: 4, my: 4, textAlign: 'center'}}>
@@ -155,7 +186,7 @@ export default function LandingPage() {
                 </Box>
 
                 {/* Future Expenses */}
-                <Typography variant="h5" sx={{mt: 6, mb: 2}}>Future Expenses</Typography>
+                <Typography variant="h5" sx={{mt: 6, mb: 2}}>Planned Expenses</Typography>
                 <ExpenseTable
                     items={futureExpenses}
                     type="future"
@@ -182,6 +213,10 @@ export default function LandingPage() {
                     type="past"
                     onRemove={onRemove}
                 />
+            </Container>
+            <Container sx={{py: 6}}>
+                <Button onClick={reset} variant={"outlined"} fullWidth={true} color={"secondary"}>Start a new
+                    month!</Button>
             </Container>
         </ThemeProvider>
     );

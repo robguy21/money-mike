@@ -42,14 +42,20 @@ export default function ExpenseTable({items, type, markAsPaid, onRemove, updateB
                     {items.map((item, index) => (
                         <React.Fragment key={index}>
                             {/* First Row: Full-width Name */}
-                            <TableRow sx={item.paid && {opacity: 0.4}}>
+                            <TableRow sx={{
+                                backgroundColor: index % 2 === 0 ? 'background.default' : 'grey.800',
+                                ...(item.paid && {opacity: 0.4})
+                            }}>
                                 <TableCell colSpan={3} sx={{fontSize: 18, fontWeight: 'bold'}}>
                                     {item.name}
                                 </TableCell>
                             </TableRow>
 
                             {/* Second Row: Amount, Date/Used, Actions */}
-                            <TableRow sx={item.paid && {opacity: 0.4}}>
+                            <TableRow sx={{
+                                backgroundColor: index % 2 === 0 ? 'background.default' : 'grey.800',
+                                ...(item.paid && {opacity: 0.4})
+                            }}>
                                 {/* Amount */}
                                 <TableCell sx={{fontSize: 16, width: '33%'}} colSpan={1}>
                                     R{item.amount}
