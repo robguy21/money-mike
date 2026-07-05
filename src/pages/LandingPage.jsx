@@ -88,7 +88,6 @@ export default function LandingPage() {
                 <p className="dashboard__eyebrow">Mike says</p>
                 <h1 className="dashboard__verdict">{verdict.title}</h1>
                 <span className="dashboard__figure">{formatRand(actualBalance)}</span>
-                <span className="dashboard__figure-label">You can actually spend</span>
             </div>
 
             <div className="dashboard__reality">
