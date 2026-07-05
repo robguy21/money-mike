@@ -1,0 +1,176 @@
+@use "sass:color";
+@use "../../../core/variables/colors" as core-colors;
+@use "../../../core/variables/font-sizes";
+@use "../../../core/tools/mixins/helpers/font-size";
+@use "../../variables/colors";
+@use "../../variables/typography";
+@use "../../variables/layout";
+@use "../../variables/custom-properties";
+
+/*------------------------------------*\
+    MODAL
+\*------------------------------------*/
+$modal-unit: layout.$spacing-unit;
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: ($modal-unit * 2);
+  background-color: rgba(core-colors.$clr-base, 0.55);
+  animation: modal-fade 160ms ease-out;
+}
+
+.modal {
+  width: 100%;
+  max-width: 27rem;
+  padding: ($modal-unit * 4) ($modal-unit * 3);
+  border-radius: custom-properties.$app-border-radius-lg;
+  background-color: colors.$clr-ntrl-10;
+  box-shadow: 0 24px 60px rgba(core-colors.$clr-base, 0.35);
+  outline: none;
+  animation: modal-pop 180ms ease-out;
+}
+
+.modal__eyebrow {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  margin: 0 0 ($modal-unit * 0.5);
+  font-weight: typography.$font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: colors.$clr-ntrl-50;
+}
+
+.modal__title {
+  @include font-size.font-size(font-sizes.$fs-h2);
+  margin: 0 0 ($modal-unit * 1.5);
+  font-weight: typography.$font-weight-bold;
+  letter-spacing: -0.02em;
+}
+
+.modal__body {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0 0 ($modal-unit * 3);
+  color: colors.$clr-base-lt;
+  line-height: 1.5;
+}
+
+.modal__choices {
+  display: flex;
+  flex-direction: column;
+  gap: $modal-unit;
+}
+
+.modal__choice {
+  display: flex;
+  flex-direction: column;
+  gap: ($modal-unit * 0.5);
+  width: 100%;
+  padding: ($modal-unit * 2);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-10;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: colors.$clr-primary;
+  }
+}
+
+.modal__choice--primary {
+  border-color: colors.$clr-primary;
+  background-color: colors.$clr-primary;
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-primary-lt;
+    border-color: colors.$clr-primary-lt;
+  }
+
+  .modal__choice-title {
+    color: colors.$clr-ntrl-10;
+  }
+
+  .modal__choice-hint {
+    color: rgba(#fff, 0.75);
+  }
+}
+
+.modal__choice-title {
+  @include font-size.font-size(font-sizes.$fs-h5);
+  font-weight: typography.$font-weight-semibold;
+}
+
+.modal__choice-hint {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  color: colors.$clr-ntrl-50;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: ($modal-unit * 1.5);
+}
+
+.modal__label {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  font-weight: typography.$font-weight-medium;
+  color: colors.$clr-base-lt;
+}
+
+.modal__input {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: font-sizes.$fs-h3;
+  font-weight: typography.$font-weight-semibold;
+  text-align: right;
+}
+
+.modal__cancel {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  display: block;
+  width: 100%;
+  margin-block-start: ($modal-unit * 2);
+  padding: $modal-unit;
+  border: 0;
+  background: none;
+  color: colors.$clr-ntrl-50;
+  font-weight: typography.$font-weight-medium;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    color: core-colors.$clr-base;
+  }
+}
+
+@keyframes modal-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-overlay,
+  .modal {
+    animation: none;
+  }
+}

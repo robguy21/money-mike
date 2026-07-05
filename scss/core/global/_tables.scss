@@ -1,0 +1,16 @@
+@use "../tools/mixins/helpers/media-query";
+@use "../variables/layout";
+
+@use "sass:math";
+/*------------------------------------*\
+    TABLES
+\*------------------------------------*/
+table { width: 100%;}
+
+th, td {
+  padding: #{math.div(layout.$spacing-scalar, 2)}rem;
+
+  @include media-query.media-query(palm){
+    padding: #{math.div(layout.$spacing-scalar, 4)}rem;
+  }
+}

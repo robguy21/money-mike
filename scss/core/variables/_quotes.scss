@@ -1,0 +1,15 @@
+/*------------------------------------*\
+    QUOTE VARIABLES
+\*------------------------------------*/
+/**
+ * English quote marks?
+ */
+$english-quotes:  true!default;
+
+$open-quote:  \201C;
+$close-quote: \201D;
+
+@if not $english-quotes {
+  $open-quote:  \00AB;
+  $close-quote: \00BB;
+}

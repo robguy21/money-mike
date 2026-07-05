@@ -1,0 +1,12 @@
+@use "../../tools/mixins/components/buttons";
+
+/*------------------------------------*\
+    BUTTONS
+\*------------------------------------*/
+.btn { @include buttons.btn; }
+
+.btn--primary { @include buttons.btn--primary; }
+.btn--secondary { @include buttons.btn--secondary; }
+.btn--outline { @include buttons.btn--outline; }
+
+.btn--block { @include buttons.btn--block; }

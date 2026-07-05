@@ -1,0 +1,190 @@
+@use "../../../../core/tools/functions/px-to-rem";
+
+/*------------------------------------*\
+    $MARGIN AND PADDING
+\*------------------------------------*/
+$marpad-largest: px-to-rem.px-to-rem(36px); // $spacing-scalar * $fs-base * 1.75);
+$marpad-larger: px-to-rem.px-to-rem(30px); // $spacing-scalar * $fs-base * 1.5);
+$marpad-large: px-to-rem.px-to-rem(22px); // $spacing-scalar * $fs-base * 1.25);
+$marpad-base: px-to-rem.px-to-rem(18px); // px-to-rem($spacing-scalar * $fs-base);
+$marpad-small: px-to-rem.px-to-rem(16px); // $spacing-scalar * $fs-base * .75);
+$marpad-smaller: px-to-rem.px-to-rem(12px); // $spacing-scalar * $fs-base * .5);
+$marpad-smallest: px-to-rem.px-to-rem(10px); // $spacing-scalar * $fs-base * .25);
+$marpad-micro: px-to-rem.px-to-rem(8px); // $spacing-scalar * $fs-base * .25);
+$marpad-nano: px-to-rem.px-to-rem(4px); // $spacing-scalar * $fs-base * .25);
+
+
+
+
+
+/*------------------------------------*\
+    $MARGIN
+\*------------------------------------*/
+@mixin u-margin--largest               { margin: $marpad-largest;}
+@mixin u-margin--largest--block-start  { margin-block-start: $marpad-largest;}
+@mixin u-margin--largest--inline-end   { margin-inline-end: $marpad-largest;}
+@mixin u-margin--largest--block-end    { margin-block-end: $marpad-largest;}
+@mixin u-margin--largest--inline-start { margin-inline-start: $marpad-largest;}
+@mixin u-margin--largest--block        { margin-block-start: $marpad-largest; margin-block-end: $marpad-largest;}
+@mixin u-margin--largest--inline       { margin-inline-end: $marpad-largest; margin-inline-start: $marpad-largest;}
+
+@mixin u-margin--larger               { margin: $marpad-larger;}
+@mixin u-margin--larger--block-start  { margin-block-start: $marpad-larger;}
+@mixin u-margin--larger--inline-end   { margin-inline-end: $marpad-larger;}
+@mixin u-margin--larger--block-end    { margin-block-end: $marpad-larger;}
+@mixin u-margin--larger--inline-start { margin-inline-start: $marpad-larger;}
+@mixin u-margin--larger--block        { margin-block-start: $marpad-larger; margin-block-end: $marpad-larger;}
+@mixin u-margin--larger--inline       { margin-inline-end: $marpad-larger; margin-inline-start: $marpad-larger;}
+
+@mixin u-margin--large               { margin: $marpad-large;}
+@mixin u-margin--large--block-start  { margin-block-start: $marpad-large;}
+@mixin u-margin--large--inline-end   { margin-inline-end: $marpad-large;}
+@mixin u-margin--large--block-end    { margin-block-end: $marpad-large;}
+@mixin u-margin--large--inline-start { margin-inline-start: $marpad-large;}
+@mixin u-margin--large--block        { margin-block-start: $marpad-large; margin-block-end: $marpad-large;}
+@mixin u-margin--large--inline       { margin-inline-end: $marpad-large; margin-inline-start: $marpad-large;}
+
+@mixin u-margin               { margin: $marpad-base;}
+@mixin u-margin--block-start  { margin-block-start: $marpad-base;}
+@mixin u-margin--inline-end   { margin-inline-end: $marpad-base;}
+@mixin u-margin--block-end    { margin-block-end: $marpad-base;}
+@mixin u-margin--inline-start { margin-inline-start: $marpad-base;}
+@mixin u-margin--block        { margin-block-start: $marpad-base; margin-block-end: $marpad-base;}
+@mixin u-margin--inline       { margin-inline-end: $marpad-base; margin-inline-start: $marpad-base;}
+
+@mixin u-margin--small               { margin: $marpad-small;}
+@mixin u-margin--small--block-start  { margin-block-start: $marpad-small;}
+@mixin u-margin--small--inline-end   { margin-inline-end: $marpad-small;}
+@mixin u-margin--small--block-end    { margin-block-end: $marpad-small;}
+@mixin u-margin--small--inline-start { margin-inline-start: $marpad-small;}
+@mixin u-margin--small--block        { margin-block-start: $marpad-small; margin-block-end: $marpad-small;}
+@mixin u-margin--small--inline       { margin-inline-end: $marpad-small; margin-inline-start: $marpad-small;}
+
+@mixin u-margin--smaller               { margin: $marpad-smaller;}
+@mixin u-margin--smaller--block-start  { margin-block-start: $marpad-smaller;}
+@mixin u-margin--smaller--inline-end   { margin-inline-end: $marpad-smaller;}
+@mixin u-margin--smaller--block-end    { margin-block-end: $marpad-smaller;}
+@mixin u-margin--smaller--inline-start { margin-inline-start: $marpad-smaller;}
+@mixin u-margin--smaller--block        { margin-block-start: $marpad-smaller; margin-block-end: $marpad-smaller;}
+@mixin u-margin--smaller--inline       { margin-inline-end: $marpad-smaller; margin-inline-start: $marpad-smaller;}
+
+@mixin u-margin--smallest               { margin: $marpad-smallest;}
+@mixin u-margin--smallest--block-start  { margin-block-start: $marpad-smallest;}
+@mixin u-margin--smallest--inline-end   { margin-inline-end: $marpad-smallest;}
+@mixin u-margin--smallest--block-end    { margin-block-end: $marpad-smallest;}
+@mixin u-margin--smallest--inline-start { margin-inline-start: $marpad-smallest;}
+@mixin u-margin--smallest--block        { margin-block-start: $marpad-smallest; margin-block-end: $marpad-smallest;}
+@mixin u-margin--smallest--inline       { margin-inline-end: $marpad-smallest; margin-inline-start: $marpad-smallest;}
+
+@mixin u-margin--micro               { margin: $marpad-micro;}
+@mixin u-margin--micro--block-start  { margin-block-start: $marpad-micro;}
+@mixin u-margin--micro--inline-end   { margin-inline-end: $marpad-micro;}
+@mixin u-margin--micro--block-end    { margin-block-end: $marpad-micro;}
+@mixin u-margin--micro--inline-start { margin-inline-start: $marpad-micro;}
+@mixin u-margin--micro--block        { margin-block-start: $marpad-micro; margin-block-end: $marpad-micro;}
+@mixin u-margin--micro--inline       { margin-inline-end: $marpad-micro; margin-inline-start: $marpad-micro;}
+
+@mixin u-margin--nano               { margin: $marpad-nano;}
+@mixin u-margin--nano--block-start  { margin-block-start: $marpad-nano;}
+@mixin u-margin--nano--inline-end   { margin-inline-end: $marpad-nano;}
+@mixin u-margin--nano--block-end    { margin-block-end: $marpad-nano;}
+@mixin u-margin--nano--inline-start { margin-inline-start: $marpad-nano;}
+@mixin u-margin--nano--block        { margin-block-start: $marpad-nano; margin-block-end: $marpad-nano;}
+@mixin u-margin--nano--inline       { margin-inline-end: $marpad-nano; margin-inline-start: $marpad-nano;}
+
+
+@mixin u-margin--none               { margin: 0;}
+@mixin u-margin--none--block-start  { margin-block-start: 0;}
+@mixin u-margin--none--inline-end   { margin-inline-end: 0;}
+@mixin u-margin--none--block-end    { margin-block-end: 0;}
+@mixin u-margin--none--inline-start { margin-inline-start: 0;}
+@mixin u-margin--none--block        { margin-block-start: 0; margin-block-end:0;}
+@mixin u-margin--none--inline       { margin-inline-end: 0; margin-inline-start:  0;}
+
+
+
+
+
+
+/*------------------------------------*\
+    $PADDING
+\*------------------------------------*/
+@mixin u-padding--largest               { padding: $marpad-largest;}
+@mixin u-padding--largest--block-start  { padding-block-start: $marpad-largest;}
+@mixin u-padding--largest--inline-end   { padding-inline-end: $marpad-largest;}
+@mixin u-padding--largest--block-end    { padding-block-end: $marpad-largest;}
+@mixin u-padding--largest--inline-start { padding-inline-start: $marpad-largest;}
+@mixin u-padding--largest--block        { padding-block-start: $marpad-largest; padding-block-end: $marpad-largest;}
+@mixin u-padding--largest--inline       { padding-inline-end: $marpad-largest; padding-inline-start: $marpad-largest;}
+
+@mixin u-padding--larger               { padding: $marpad-larger;}
+@mixin u-padding--larger--block-start  { padding-block-start: $marpad-larger;}
+@mixin u-padding--larger--inline-end   { padding-inline-end: $marpad-larger;}
+@mixin u-padding--larger--block-end    { padding-block-end: $marpad-larger;}
+@mixin u-padding--larger--inline-start { padding-inline-start: $marpad-larger;}
+@mixin u-padding--larger--block        { padding-block-start: $marpad-larger; padding-block-end: $marpad-larger;}
+@mixin u-padding--larger--inline       { padding-inline-end: $marpad-larger; padding-inline-start: $marpad-larger;}
+
+@mixin u-padding--large               { padding: $marpad-large;}
+@mixin u-padding--large--block-start  { padding-block-start: $marpad-large;}
+@mixin u-padding--large--inline-end   { padding-inline-end: $marpad-large;}
+@mixin u-padding--large--block-end    { padding-block-end: $marpad-large;}
+@mixin u-padding--large--inline-start { padding-inline-start: $marpad-large;}
+@mixin u-padding--large--block        { padding-block-start: $marpad-large; padding-block-end: $marpad-large;}
+@mixin u-padding--large--inline       { padding-inline-end: $marpad-large; padding-inline-start: $marpad-large;}
+
+@mixin u-padding               { padding: $marpad-base;}
+@mixin u-padding--block-start  { padding-block-start: $marpad-base;}
+@mixin u-padding--inline-end   { padding-inline-end: $marpad-base;}
+@mixin u-padding--block-end    { padding-block-end: $marpad-base;}
+@mixin u-padding--inline-start { padding-inline-start: $marpad-base;}
+@mixin u-padding--block        { padding-block-start: $marpad-base; padding-block-end: $marpad-base;}
+@mixin u-padding--inline       { padding-inline-end: $marpad-base; padding-inline-start: $marpad-base;}
+
+@mixin u-padding--small               { padding: $marpad-small;}
+@mixin u-padding--small--block-start  { padding-block-start: $marpad-small;}
+@mixin u-padding--small--inline-end   { padding-inline-end: $marpad-small;}
+@mixin u-padding--small--block-end    { padding-block-end: $marpad-small;}
+@mixin u-padding--small--inline-start { padding-inline-start: $marpad-small;}
+@mixin u-padding--small--block        { padding-block-start: $marpad-small; padding-block-end: $marpad-small;}
+@mixin u-padding--small--inline       { padding-inline-end: $marpad-small; padding-inline-start: $marpad-small;}
+
+@mixin u-padding--smaller               { padding: $marpad-smaller;}
+@mixin u-padding--smaller--block-start  { padding-block-start: $marpad-smaller;}
+@mixin u-padding--smaller--inline-end   { padding-inline-end: $marpad-smaller;}
+@mixin u-padding--smaller--block-end    { padding-block-end: $marpad-smaller;}
+@mixin u-padding--smaller--inline-start { padding-inline-start: $marpad-smaller;}
+@mixin u-padding--smaller--block        { padding-block-start: $marpad-smaller; padding-block-end: $marpad-smaller;}
+@mixin u-padding--smaller--inline       { padding-inline-end: $marpad-smaller; padding-inline-start: $marpad-smaller;}
+
+@mixin u-padding--smallest               { padding: $marpad-smallest;}
+@mixin u-padding--smallest--block-start  { padding-block-start: $marpad-smallest;}
+@mixin u-padding--smallest--inline-end   { padding-inline-end: $marpad-smallest;}
+@mixin u-padding--smallest--block-end    { padding-block-end: $marpad-smallest;}
+@mixin u-padding--smallest--inline-start { padding-inline-start: $marpad-smallest;}
+@mixin u-padding--smallest--block        { padding-block-start: $marpad-smallest; padding-block-end: $marpad-smallest;}
+@mixin u-padding--smallest--inline       { padding-inline-end: $marpad-smallest; padding-inline-start: $marpad-smallest;}
+
+@mixin u-padding--micro               { padding: $marpad-micro;}
+@mixin u-padding--micro--block-start  { padding-block-start: $marpad-micro;}
+@mixin u-padding--micro--inline-end   { padding-inline-end: $marpad-micro;}
+@mixin u-padding--micro--block-end    { padding-block-end: $marpad-micro;}
+@mixin u-padding--micro--inline-start { padding-inline-start: $marpad-micro;}
+@mixin u-padding--micro--block        { padding-block-start: $marpad-micro; padding-block-end: $marpad-micro;}
+@mixin u-padding--micro--inline       { padding-inline-end: $marpad-micro; padding-inline-start: $marpad-micro;}
+
+@mixin u-padding--nano               { padding: $marpad-nano;}
+@mixin u-padding--nano--block-start  { padding-block-start: $marpad-nano;}
+@mixin u-padding--nano--inline-end   { padding-inline-end: $marpad-nano;}
+@mixin u-padding--nano--block-end    { padding-block-end: $marpad-nano;}
+@mixin u-padding--nano--inline-start { padding-inline-start: $marpad-nano;}
+@mixin u-padding--nano--block        { padding-block-start: $marpad-nano; padding-block-end: $marpad-nano;}
+@mixin u-padding--nano--inline       { padding-inline-end: $marpad-nano; padding-inline-start: $marpad-nano;}
+
+@mixin u-padding--none               { padding:       0;}
+@mixin u-padding--none--block-start  { padding-block-start:   0;}
+@mixin u-padding--none--inline-end   { padding-inline-end: 0;}
+@mixin u-padding--none--block-end    { padding-block-end:0;}
+@mixin u-padding--none--inline-start { padding-inline-start:  0;}
+@mixin u-padding--none--block        { padding-block-start:   0; padding-block-end:0;}
+@mixin u-padding--none--inline       { padding-inline-end: 0; padding-inline-start:  0;}

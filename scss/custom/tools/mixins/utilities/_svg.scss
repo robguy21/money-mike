@@ -1,0 +1,4 @@
+@mixin svg-size($px-size) {
+  width: $px-size;
+  height: $px-size;
+}

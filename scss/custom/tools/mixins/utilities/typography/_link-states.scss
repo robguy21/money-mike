@@ -1,0 +1,56 @@
+/*------------------------------------*\
+    $TYPOGRAPHIC LINK STATES MIXIN
+\*------------------------------------*/
+@mixin u-fc--link-states($base-clr, $hover-clr, $active-clr) {
+  color: $base-clr;
+  //&:visited { color: $base-clr; }
+
+  &:hover {
+    color: $hover-clr;
+    text-decoration: unset;
+  }
+
+  @media (hover) {
+    &:focus {
+      color: $hover-clr;
+    }
+  }
+
+  &:active {
+    color: $active-clr;
+  }
+}
+
+@mixin u-fc--svg-states($base-clr, $hover-clr, $active-clr) {
+  color: $base-clr;
+  svg {
+    transition: fill ease-in-out 350ms;
+    fill: $base-clr;
+  }
+  // &:visited { color: $base-clr; }
+
+  &:hover {
+    text-decoration: unset;
+
+    svg {
+      transition: fill ease-in-out 350ms;
+      fill: $hover-clr;
+    }
+  }
+
+  @media (hover) {
+    &:focus {
+      svg {
+        transition: fill ease-in-out 350ms;
+        fill: $hover-clr;
+      }
+    }
+  }
+
+  &:active {
+    svg {
+      transition: fill ease-in-out 350ms;
+      fill: $active-clr;
+    }
+  }
+}

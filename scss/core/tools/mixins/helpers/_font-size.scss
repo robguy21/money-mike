@@ -1,0 +1,27 @@
+@use "../../../variables/font-sizes";
+@use "../../../variables/typography";
+@use "px-and-rem";
+
+@use "sass:math";
+/**
+ * Create a fully formed type style (sizing and vertical rhythm) by passing in a
+ * single value, e.g.:
+ *
+   `@include font-size(10px);`
+ *
+ * Thanks to @redclov3r for the `line-height` Sass:
+ * twitter.com/redclov3r/status/250301539321798657
+ */
+@mixin font-size($font-size, $line-height:false, $px-fallback:false){
+
+  @if math.is-unitless($font-size){
+    @include px-and-rem.px-and-rem(font-size, $font-size);
+  } @else {
+		@if ($px-fallback) { font-size: $font-size;}
+    font-size: math.div($font-size, font-sizes.$fs-base) * 1rem;
+  }
+
+  @if $line-height == true {
+    line-height: math.ceil($font-size / typography.$line-height-base) * (typography.$line-height-base / $font-size);
+  }
+}

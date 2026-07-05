@@ -1,0 +1,17 @@
+@use "../../core/variables/colors";
+@use "../variables/typography";
+
+/*------------------------------------*\
+    HEADINGS
+\*------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: typography.$font-weight-semibold;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: colors.$clr-base;
+}
+
+h1 {
+  font-weight: typography.$font-weight-bold;
+  letter-spacing: -0.02em;
+}

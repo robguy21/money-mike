@@ -1,223 +1,187 @@
+import {useEffect, useMemo, useState} from 'react';
+import ExpenseList from '../components/ExpenseList.jsx';
+import MonthHistory from '../components/MonthHistory.jsx';
+import MonthEndModal from '../components/MonthEndModal.jsx';
+import {formatRand, formatStamp, verdictFor} from '../lib/verdict.js';
 import {
-    Box, Container, Typography, TextField, Table, TableBody,
-    TableCell, TableContainer, TableHead, TableRow, Paper, IconButton, ThemeProvider, createTheme, Button
-} from '@mui/material';
-import {useState, useEffect} from 'react';
-import {Delete, Done} from '@mui/icons-material';
-import ExpenseTable from "../components/ExpenseTable.jsx";
-import {v4} from 'uuid';
+    loadState,
+    saveState,
+    calculateActualBalance,
+    summariseMonth,
+    freshCurrent,
+    carryOverCurrent,
+    STATE_VERSION,
+} from '../lib/storage.js';
 
-const version = 1;
-
-const darkTheme = createTheme({
-    palette: {
-        mode: 'dark',
-    },
-    typography: {
-        fontSize: 16,
-    }
-});
-
-const LOCAL_STORAGE_KEY = 'money-mike-state';
-
-const loadState = () => {
-    try {
-        const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-        return stored ? JSON.parse(stored) : null;
-    } catch (e) {
-        console.error("Failed to load from localStorage", e);
-        return null;
-    }
-};
-
-const saveState = (state) => {
-    try {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(state));
-    } catch (e) {
-        console.error("Failed to save to localStorage", e);
-    }
-};
-
-function calculateActualBalance(available, future, budgeted) {
-    const unpaidFuture = future.filter(e => !e.paid).reduce((sum, e) => sum + e.amount, 0);
-    const remainingBudget = budgeted.filter(e => !e.paid).reduce((sum, e) => sum + (e.amount - e.used), 0);
-    return available - unpaidFuture - remainingBudget;
-}
+const sum = (items, key = 'amount') => items.reduce((total, item) => total + (item[key] || 0), 0);
 
 export default function LandingPage() {
-    const initialState = loadState();
-
-    const [availableBalance, setAvailableBalance] = useState(initialState?.availableBalance ?? 2000);
-    const [futureExpenses, setFutureExpenses] = useState(
-        initialState?.futureExpenses ?? [
-            {id: v4(), name: 'Dog Walker', amount: 500, date: 3, paid: false},
-            {id: v4(), name: 'Insurance', amount: 500, date: 15, paid: false}
-        ]
-    );
-    const [budgetedExpenses, setBudgetedExpenses] = useState(
-        initialState?.budgetedExpenses ?? [
-            {id: v4(), name: 'New Shoes', amount: 500, used: 0, paid: false}
-        ]
-    );
-    const [pastExpenses, setPastExpenses] = useState(
-        initialState?.pastExpenses ?? [
-            {id: v4(), name: 'Groceries', amount: 1000, date: 10}
-        ]
-    );
+    const initialState = useMemo(loadState, []);
+    const [current, setCurrent] = useState(initialState.current);
+    const [history, setHistory] = useState(initialState.history);
+    const [monthEndOpen, setMonthEndOpen] = useState(false);
 
     useEffect(() => {
-        saveState({availableBalance, futureExpenses, budgetedExpenses, pastExpenses, version});
-    }, [availableBalance, futureExpenses, budgetedExpenses, pastExpenses]);
+        saveState({version: STATE_VERSION, current, history});
+    }, [current, history]);
 
-    const actualBalance = calculateActualBalance(availableBalance, futureExpenses, budgetedExpenses);
+    const actualBalance = calculateActualBalance(
+        current.availableBalance,
+        current.futureExpenses,
+        current.budgetedExpenses,
+    );
+    const verdict = verdictFor(actualBalance);
+    const updatedStamp = formatStamp(current.balanceUpdatedAt);
 
-    const reset = () => {
-        setAvailableBalance(0);
-        setFutureExpenses([]);
-        setBudgetedExpenses([]);
-        setPastExpenses([])
-    }
+    const setAvailableBalance = (value) =>
+        setCurrent(c => ({
+            ...c,
+            availableBalance: Number(value),
+            balanceUpdatedAt: new Date().toISOString(),
+        }));
 
-    const markAsPaid = (id, type) => {
-        if (type === 'future') {
-            setFutureExpenses(prev => {
-                const paidItem = prev.find(e => e.id === id);
-                if (!paidItem) return prev;
-                setPastExpenses(past => {
-                    const exists = past.find(e => e.id === id);
-                    if (exists) return past;
-                    return [...past, {...paidItem, paid: true}];
-                });
-                return prev.filter(e => e.id !== id);
-            });
-        } else {
-            setBudgetedExpenses(prev => prev.map(e => e.id === id ? {...e, paid: true} : e));
-        }
+    const addFuture = (entry) =>
+        setCurrent(c => ({...c, futureExpenses: [...c.futureExpenses, entry]}));
+
+    const addBudget = (entry) =>
+        setCurrent(c => ({...c, budgetedExpenses: [...c.budgetedExpenses, entry]}));
+
+    // Add to a budget's spend, capped at the budgeted amount so the balance
+    // math stays honest (an overspent budget can't free up phantom money).
+    const addSpend = (id, amount) =>
+        setCurrent(c => ({
+            ...c,
+            budgetedExpenses: c.budgetedExpenses.map(e =>
+                e.id === id
+                    ? {...e, used: Math.min(e.amount, Math.max(0, (e.used || 0) + amount))}
+                    : e),
+        }));
+
+    // Mark an item paid in place (keeps it in its list so recurring planned
+    // items survive into next month via "Use last month").
+    const markPaid = (id, type) =>
+        setCurrent(c => {
+            const key = type === 'future' ? 'futureExpenses' : 'budgetedExpenses';
+            return {
+                ...c,
+                [key]: c[key].map(e => (e.id === id ? {...e, paid: true} : e)),
+            };
+        });
+
+    const removeItem = (id, type) =>
+        setCurrent(c => {
+            if (type === 'future') return {...c, futureExpenses: c.futureExpenses.filter(e => e.id !== id)};
+            if (type === 'budget') return {...c, budgetedExpenses: c.budgetedExpenses.filter(e => e.id !== id)};
+            return {...c, pastExpenses: c.pastExpenses.filter(e => e.id !== id)};
+        });
+
+    const finishMonth = (mode) => {
+        const summary = summariseMonth(current);
+        setHistory(h => [summary, ...h]);
+        setCurrent(mode === 'carry' ? carryOverCurrent(current) : freshCurrent());
+        setMonthEndOpen(false);
     };
-
-    const onRemove = (id, type) => {
-        if (type === 'future') {
-            setFutureExpenses(prev => prev.filter(e => e.id !== id))
-        } else if (type === 'budget') {
-            setBudgetedExpenses(prev => prev.filter(e => e.id !== id));
-        } else {
-            setPastExpenses(prev => prev.filter(e => e.id !== id));
-        }
-    }
-
-    const updateBudgetUsed = (id, used) => {
-        setBudgetedExpenses(prev => prev.map(e => e.id === id ? {...e, used: Number(used)} : e));
-    };
-
-    const titles = [
-        {
-            title: "You're doing a great job!",
-            min: 1500,
-        },
-        {
-            title: "You've got some, use it carefully",
-            min: 1000,
-        },
-        {
-            title: "Whoops! Only emergencies!",
-            min: 200,
-        },
-        {
-            title: "Hold up tiger! Don't spend!!",
-            min: 50,
-        },
-    ];
-
-    let title = "You fucking donkey. Don't spend.";
-    for (let option of titles) {
-        if (actualBalance > option.min) {
-            title = option.title;
-            break;
-        }
-    }
-
-    if (actualBalance === 0) {
-        title = "Perfectly balanced..."
-    }
 
     return (
-        <ThemeProvider theme={darkTheme}>
-            <Container maxWidth="md" sx={{py: 6}}>
-                <Typography variant="h3" align="center" gutterBottom>
-                    {title}
-                </Typography>
+        <div className="dashboard">
+            <div className="dashboard__hero" data-tier={verdict.tier}>
+                <p className="dashboard__eyebrow">Mike says</p>
+                <h1 className="dashboard__verdict">{verdict.title}</h1>
+                <span className="dashboard__figure">{formatRand(actualBalance)}</span>
+                <span className="dashboard__figure-label">You can actually spend</span>
+            </div>
 
-                {/* Actual Balance */}
-                <Paper elevation={3} sx={{p: 4, my: 4, textAlign: 'center'}}>
-                    <Typography variant="h5">Actual Balance</Typography>
-                    <Typography variant="h3" color="primary">R{actualBalance}</Typography>
-                </Paper>
+            <div className="dashboard__reality">
+                <label className="dashboard__label" htmlFor="available-balance">
+                    What your banking app says
+                </label>
+                <input
+                    id="available-balance"
+                    className="dashboard__reality-input"
+                    type="number"
+                    inputMode="numeric"
+                    placeholder="0"
+                    value={current.availableBalance === 0 ? '' : current.availableBalance}
+                    onChange={(e) => setAvailableBalance(e.target.value)}
+                />
+                <p className="dashboard__stamp">
+                    {updatedStamp ? `Updated ${updatedStamp}` : 'Not updated yet this month'}
+                </p>
+            </div>
 
-                {/* Editable Available Balance */}
-                <Box sx={{my: 4, backgroundColor: 'background.paper', p: 2, borderRadius: 2}}>
-                    <TextField
-                        fullWidth
-                        label="Available Balance on Banking App"
-                        type="number"
-                        variant="outlined"
-                        size="medium"
-                        slotProps={{
-                            htmlInput: {
-                                type: 'number',
-                                style: {fontSize: 20},
-                            },
-                            inputLabel: {
-                                style: {color: "#666",},
-                            },
-                            input: {
-                                sx: {
-                                    color: 'text.primary',
-                                    backgroundColor: 'background.default',
-                                    '& fieldset': {
-                                        borderColor: 'divider',
-                                    },
-                                },
-                            },
-                        }}
-                        sx={{input: {color: 'text.primary'}}}
-                        value={availableBalance}
-                        onChange={(e) => setAvailableBalance(Number(e.target.value))}
-                    />
-                </Box>
-
-                {/* Future Expenses */}
-                <Typography variant="h5" sx={{mt: 6, mb: 2}}>Planned Expenses</Typography>
-                <ExpenseTable
-                    items={futureExpenses}
+            <section className="dashboard__section">
+                <div className="dashboard__section-head">
+                    <h2 className="dashboard__section-title">Planned</h2>
+                    <span className="dashboard__section-total">{formatRand(sum(current.futureExpenses))}</span>
+                </div>
+                <ExpenseList
+                    items={current.futureExpenses}
                     type="future"
-                    markAsPaid={markAsPaid}
-                    addItem={(entry) => setFutureExpenses(prev => [...prev, entry])}
-                    onRemove={onRemove}
+                    onMarkPaid={markPaid}
+                    onRemove={removeItem}
+                    onAdd={addFuture}
                 />
+            </section>
 
-                {/* Budgeted Expenses */}
-                <Typography variant="h5" sx={{mt: 6, mb: 2}}>Budgeted Expenses</Typography>
-                <ExpenseTable
-                    items={budgetedExpenses}
+            <section className="dashboard__section">
+                <div className="dashboard__section-head">
+                    <h2 className="dashboard__section-title">Budgeted</h2>
+                    <span className="dashboard__section-total">{formatRand(sum(current.budgetedExpenses))}</span>
+                </div>
+                <ExpenseList
+                    items={current.budgetedExpenses}
                     type="budget"
-                    markAsPaid={markAsPaid}
-                    updateBudgetUsed={updateBudgetUsed}
-                    addItem={(entry) => setBudgetedExpenses(prev => [...prev, entry])}
-                    onRemove={onRemove}
+                    onMarkPaid={markPaid}
+                    onRemove={removeItem}
+                    onSpend={addSpend}
+                    onAdd={addBudget}
                 />
+            </section>
 
-                {/* Past Expenses */}
-                <Typography variant="h5" sx={{mt: 6, mb: 2, color: 'gray'}}>Past Expenses</Typography>
-                <ExpenseTable
-                    items={pastExpenses}
-                    type="past"
-                    onRemove={onRemove}
+            {current.pastExpenses.length > 0 && (
+                <section className="dashboard__section dashboard__section--past">
+                    <div className="dashboard__section-head">
+                        <h2 className="dashboard__section-title">Already spent</h2>
+                        <span className="dashboard__section-total">{formatRand(sum(current.pastExpenses))}</span>
+                    </div>
+                    <ExpenseList
+                        items={current.pastExpenses}
+                        type="past"
+                        onRemove={removeItem}
+                    />
+                </section>
+            )}
+
+            <div className="dashboard__closer">
+                <p className="dashboard__closer-hint">
+                    Done for the month? Mike grades you and starts you fresh.
+                </p>
+                <button
+                    type="button"
+                    className="btn btn--primary btn--block"
+                    onClick={() => setMonthEndOpen(true)}
+                >
+                    End month &amp; summarise
+                </button>
+            </div>
+
+            {history.length > 0 && (
+                <section className="dashboard__section">
+                    <div className="dashboard__section-head">
+                        <h2 className="dashboard__section-title">Mike's report card</h2>
+                    </div>
+                    <MonthHistory history={history}/>
+                </section>
+            )}
+
+            {monthEndOpen && (
+                <MonthEndModal
+                    verdict={verdict}
+                    onUseLastMonth={() => finishMonth('carry')}
+                    onStartFresh={() => finishMonth('fresh')}
+                    onCancel={() => setMonthEndOpen(false)}
                 />
-            </Container>
-            <Container sx={{py: 6}}>
-                <Button onClick={reset} variant={"outlined"} fullWidth={true} color={"secondary"}>Start a new
-                    month!</Button>
-            </Container>
-        </ThemeProvider>
+            )}
+        </div>
     );
 }

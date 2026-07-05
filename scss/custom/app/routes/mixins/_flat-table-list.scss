@@ -1,0 +1,39 @@
+@use "sass:math";
+@use "../../../variables/colors";
+
+@mixin flat-table-list-headings($columns) {
+  margin: 0 0 6px;
+  border: 0;
+  border-bottom: 1px solid colors.$clr-base-lt;
+  border-radius: 0;
+  display: flex;
+  flex-flow: row nowrap;
+
+  span {
+    flex-basis: math.percentage(calc(1 / $columns));
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
+
+@mixin flat-table-list-row($columns) {
+  margin: 0 0 6px;
+  border: 0;
+  border-radius: 0;
+
+  span {
+    flex-basis: math.percentage(calc(1 / $columns));
+
+    &:last-child {
+      text-align: right;
+
+      i {
+        &:hover {
+          color: colors.$clr-primary;
+        }
+      }
+    }
+  }
+}

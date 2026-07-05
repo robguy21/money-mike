@@ -1,0 +1,179 @@
+@use "../../../core/variables/colors" as core-colors;
+@use "../../../core/variables/font-sizes";
+@use "../../../core/tools/mixins/helpers/font-size";
+@use "../../variables/colors";
+@use "../../variables/typography";
+@use "../../variables/layout";
+@use "../../variables/custom-properties";
+
+/*------------------------------------*\
+    MONTH HISTORY
+\*------------------------------------*/
+$hist-unit: layout.$spacing-unit;
+
+.month-history {
+  display: flex;
+  flex-direction: column;
+  gap: $hist-unit;
+}
+
+.month-history__item {
+  overflow: hidden;
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-10;
+}
+
+.month-history__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ($hist-unit * 2);
+  width: 100%;
+  padding: ($hist-unit * 2);
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-ntrl-15;
+  }
+}
+
+.month-history__head {
+  display: flex;
+  flex-direction: column;
+  gap: ($hist-unit * 0.5);
+  min-width: 0;
+}
+
+.month-history__label {
+  @include font-size.font-size(font-sizes.$fs-h5);
+  margin: 0;
+  font-weight: typography.$font-weight-semibold;
+}
+
+.month-history__meta {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0;
+  color: colors.$clr-ntrl-50;
+}
+
+.month-history__meta-figure {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.month-history__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: ($hist-unit * 0.75);
+  text-align: right;
+}
+
+.month-history__amount {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: font-sizes.$fs-h5;
+  font-weight: typography.$font-weight-bold;
+  white-space: nowrap;
+}
+
+.month-history__grade {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  padding: ($hist-unit * 0.5) ($hist-unit * 1.25);
+  border-radius: 999px;
+  font-weight: typography.$font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.month-history__grade[data-tier="great"],
+.month-history__grade[data-tier="good"] {
+  background-color: colors.$clr-success-ltst;
+  color: colors.$clr-success-dk;
+}
+
+.month-history__grade[data-tier="careful"],
+.month-history__grade[data-tier="tight"] {
+  background-color: colors.$clr-warning-ltst;
+  color: colors.$clr-warning-dk;
+}
+
+.month-history__grade[data-tier="broke"] {
+  background-color: colors.$clr-danger-ltst;
+  color: colors.$clr-danger-dk;
+}
+
+.month-history__grade[data-tier="zero"] {
+  background-color: core-colors.$clr-base;
+  color: colors.$clr-ntrl-10;
+}
+
+/*------------------------------------*\
+    EXPANDED MONTH DETAIL
+\*------------------------------------*/
+.month-detail {
+  display: flex;
+  flex-direction: column;
+  gap: ($hist-unit * 2);
+  padding: ($hist-unit * 2);
+  border-block-start: 1px solid colors.$clr-base-ltr;
+  background-color: colors.$clr-ntrl-15;
+}
+
+.month-detail__group-title {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  margin: 0 0 $hist-unit;
+  font-weight: typography.$font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: colors.$clr-ntrl-50;
+}
+
+.month-detail__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.month-detail__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ($hist-unit * 2);
+  padding-block: ($hist-unit * 0.75);
+  border-block-start: 1px solid colors.$clr-ntrl-20;
+
+  &:first-child {
+    border-block-start: 0;
+  }
+}
+
+.month-detail__name {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  color: colors.$clr-base-lt;
+  word-break: break-word;
+}
+
+.month-detail__figure {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: typography.$font-weight-medium;
+  white-space: nowrap;
+}
+
+.month-detail__empty {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0;
+  padding: ($hist-unit * 2);
+  border-block-start: 1px solid colors.$clr-base-ltr;
+  color: colors.$clr-ntrl-50;
+  text-align: center;
+}

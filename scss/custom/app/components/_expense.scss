@@ -1,0 +1,223 @@
+@use "../../../core/variables/font-sizes";
+@use "../../../core/tools/mixins/helpers/font-size";
+@use "../../variables/colors";
+@use "../../variables/typography";
+@use "../../variables/layout";
+@use "../../variables/custom-properties";
+
+/*------------------------------------*\
+    EXPENSE CARDS
+\*------------------------------------*/
+$exp-unit: layout.$spacing-unit;
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: $exp-unit;
+}
+
+.expense {
+  display: flex;
+  flex-direction: column;
+  gap: ($exp-unit * 1.5);
+  padding: ($exp-unit * 2);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-10;
+}
+
+.expense--paid {
+  opacity: 0.5;
+
+  .expense__name {
+    text-decoration: line-through;
+  }
+}
+
+.expense__row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: ($exp-unit * 2);
+}
+
+.expense__name {
+  @include font-size.font-size(font-sizes.$fs-h5);
+  font-weight: typography.$font-weight-semibold;
+  color: colors.$clr-base-lt;
+  word-break: break-word;
+}
+
+.expense__amount {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: font-sizes.$fs-h5;
+  font-weight: typography.$font-weight-bold;
+  white-space: nowrap;
+}
+
+.expense__meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ($exp-unit * 2);
+}
+
+.expense__meta {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  color: colors.$clr-ntrl-50;
+}
+
+.expense__progress {
+  height: 6px;
+  border-radius: 999px;
+  background-color: colors.$clr-ntrl-20;
+  overflow: hidden;
+}
+
+.expense__progress-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background-color: colors.$clr-base-lt;
+  transition: width 220ms ease;
+}
+
+.expense__spend-btn {
+  width: 100%;
+  padding: ($exp-unit * 1.25);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-10;
+  color: colors.$clr-base-lt;
+  font-weight: typography.$font-weight-semibold;
+  font-size: font-sizes.$fs-h6;
+  cursor: pointer;
+  transition:
+    border-color 150ms ease,
+    background-color 150ms ease,
+    color 150ms ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: colors.$clr-primary;
+    background-color: colors.$clr-ntrl-15;
+    color: colors.$clr-primary;
+  }
+}
+
+.expense__actions {
+  display: flex;
+  align-items: center;
+  gap: ($exp-unit * 0.5);
+}
+
+.expense__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: colors.$clr-ntrl-50;
+  cursor: pointer;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-ntrl-15;
+    color: colors.$clr-base-lt;
+  }
+}
+
+.expense__action--done:hover,
+.expense__action--done:focus-visible {
+  background-color: colors.$clr-success-ltst;
+  color: colors.$clr-success-dk;
+}
+
+.expense__action--remove:hover,
+.expense__action--remove:focus-visible {
+  background-color: colors.$clr-danger-ltst;
+  color: colors.$clr-danger-dk;
+}
+
+/*------------------------------------*\
+    ADD ROW
+\*------------------------------------*/
+.expense-add {
+  display: flex;
+  flex-direction: column;
+  gap: $exp-unit;
+  padding: ($exp-unit * 2);
+  border: 1px dashed colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+}
+
+.expense-add__row {
+  display: flex;
+  gap: $exp-unit;
+}
+
+.expense-add__field {
+  flex: 1 1 auto;
+  min-width: 0;
+
+  input {
+    font-family: var(--mm-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.expense-add__submit {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-primary;
+  color: colors.$clr-ntrl-10;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-primary-lt;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+}
+
+/*------------------------------------*\
+    EMPTY STATE
+\*------------------------------------*/
+.expense-empty {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0;
+  padding: ($exp-unit * 2);
+  border: 1px dashed colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  color: colors.$clr-ntrl-50;
+  text-align: center;
+}

@@ -1,0 +1,63 @@
+@use "../../../variables/custom-properties";
+@use "../../../variables/layout";
+
+/*------------------------------------*\
+  $RULES
+\*------------------------------------*/
+/**
+ * Horizontal rules, extend `hr`.
+ *
+ * Demo: jsfiddle.net/inuitcss/L6GuZ
+ *
+ */
+@mixin f8-rule {
+  color: var(--#{custom-properties.$custom-properties-prefix}clr-base);
+  border: none;
+  border-block-end-width: 1px;
+  border-block-end-style: solid;
+  margin-block-end: #{layout.$spacing-scalar}rem;
+}
+
+
+/**
+ * Dotted rules
+ */
+@mixin f8-rule--dotted {
+  border-block-end-style: dotted;
+}
+
+
+/**
+ * Dashed rules
+ */
+@mixin f8-rule--dashed {
+  border-block-end-style: dashed;
+}
+
+
+/**
+ * Ornamental rules. Places a § over the rule.
+ */
+@mixin f8-rule--ornament {
+  position: relative;
+
+  &:after {
+    content: "\00A7";
+    position: absolute;
+    inset-block-start:   0;
+    inset-inline-end: 0;
+    inset-inline-start:  0;
+    line-height: 0;
+    text-align: center;
+  }
+
+  /**
+  * Pass in an arbitrary ornament though a data attribute, e.g.:
+  *
+    <hr class="rule  rule--ornament" data-ornament="!">
+  *
+  */
+  &[data-ornament]:after {
+    content: attr(data-ornament);
+  }
+}

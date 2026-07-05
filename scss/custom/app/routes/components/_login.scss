@@ -1,0 +1,269 @@
+@use "../../../../core/variables/colors" as core-colors;
+@use "../../../variables/colors";
+@use "../../../variables/typography";
+@use "../../../variables/custom-properties";
+@use "../../../variables/layout";
+@use "../../../../core/variables/font-sizes";
+@use "../../../../core/tools/mixins/helpers/font-size";
+@use "../../../../core/tools/mixins/helpers/media-query";
+
+/*------------------------------------*\
+    LOGIN ROUTE
+\*------------------------------------*/
+$login-unit: layout.$spacing-unit;
+
+.login {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: layout.$margin-mobile;
+  background:
+    linear-gradient(135deg, colors.$clr-ntrl-10 0%, colors.$clr-ntrl-20 100%);
+
+  @include media-query.media-query(desk) {
+    padding: layout.$margin-desktop;
+  }
+}
+
+.login__header {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.login__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: $login-unit * 3;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+  max-width: layout.$container-max;
+  margin-inline: auto;
+  flex-grow: 1;
+
+  @include media-query.media-query(desk) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/*------------------------------------*\
+    DECORATIVE PANEL
+\*------------------------------------*/
+.login__aside {
+  display: none;
+
+  @include media-query.media-query(desk) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: 600px;
+    padding: $login-unit * 5;
+    border: 1px solid colors.$clr-base-ltr;
+    border-radius: custom-properties.$app-border-radius-lg;
+    background:
+      linear-gradient(135deg, colors.$clr-primary-ltst 0%, colors.$clr-ntrl-10 100%);
+  }
+}
+
+.login__aside-title {
+  @include font-size.font-size(font-sizes.$fs-kilo);
+  margin: 0 0 ($login-unit * 2);
+  color: colors.$clr-primary;
+  font-weight: typography.$font-weight-bold;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.login__aside-text {
+  @include font-size.font-size(font-sizes.$fs-h4);
+  max-width: 36rem;
+  margin: 0;
+  color: colors.$clr-base-lt;
+  line-height: 1.55;
+}
+
+/*------------------------------------*\
+    SIGN-IN CARD
+\*------------------------------------*/
+.login__card {
+  width: 100%;
+  max-width: 27.5rem;
+  margin-inline: auto;
+  padding: $login-unit * 4;
+  background-color: colors.$clr-ntrl-min;
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius-lg;
+  box-shadow: custom-properties.$app-box-shadow;
+}
+
+.login__brand-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block-end: $login-unit * 4;
+  text-align: center;
+}
+
+.login__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4rem;
+  height: 4rem;
+  margin-block-end: $login-unit * 2;
+  border-radius: custom-properties.$app-border-radius-lg;
+  background-color: colors.$clr-primary;
+  color: colors.$clr-ntrl-min;
+  font-weight: typography.$font-weight-bold;
+  letter-spacing: 0.02em;
+
+  @include font-size.font-size(font-sizes.$fs-h2);
+}
+
+.login__title {
+  @include font-size.font-size(font-sizes.$fs-h1);
+  margin: 0;
+  color: core-colors.$clr-base;
+  font-weight: typography.$font-weight-semibold;
+  letter-spacing: -0.01em;
+}
+
+.login__subtitle {
+  @include font-size.font-size(font-sizes.$fs-base);
+  margin: $login-unit 0 0;
+  color: colors.$clr-base-lt;
+}
+
+/*------------------------------------*\
+    FORM
+\*------------------------------------*/
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: $login-unit * 3;
+}
+
+.login__field {
+  display: flex;
+  flex-direction: column;
+
+  input[aria-invalid="true"] {
+    border-color: colors.$clr-danger;
+  }
+}
+
+.login__error {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0;
+  padding: ($login-unit * 1.5) ($login-unit * 2);
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-danger-ltst;
+  color: colors.$clr-danger-dk;
+}
+
+.login__label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-block-end: $login-unit;
+}
+
+.login__label {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  color: core-colors.$clr-base;
+  font-weight: typography.$font-weight-medium;
+  letter-spacing: 0.01em;
+}
+
+.login__forgot {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  font-weight: typography.$font-weight-medium;
+}
+
+.login__password {
+  position: relative;
+
+  input {
+    padding-inline-end: $login-unit * 5;
+  }
+}
+
+.login__password-toggle {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-end: $login-unit * 1.5;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: colors.$clr-ntrl-50;
+  cursor: pointer;
+  transition: color 150ms ease-in-out;
+
+  &:hover,
+  &:focus-visible {
+    color: core-colors.$clr-base;
+  }
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.login__submit {
+  margin-block-start: $login-unit;
+}
+
+/*------------------------------------*\
+    SIGNED-IN CONFIRMATION
+\*------------------------------------*/
+.login__signed-in {
+  display: flex;
+  flex-direction: column;
+  gap: $login-unit * 3;
+}
+
+.login__signed-in-text {
+  @include font-size.font-size(font-sizes.$fs-base);
+  margin: 0;
+  color: colors.$clr-base-lt;
+  line-height: 1.5;
+
+  code {
+    padding: 0.1em 0.4em;
+    border-radius: custom-properties.$app-border-radius;
+    background-color: colors.$clr-ntrl-15;
+    font-size: 0.9em;
+  }
+}
+
+/*------------------------------------*\
+    LANGUAGE SELECTOR
+\*------------------------------------*/
+.login__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: $login-unit;
+  padding: ($login-unit * 0.75) ($login-unit * 1.5);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-min;
+  color: core-colors.$clr-base;
+  cursor: pointer;
+  transition: background-color 150ms ease-in-out;
+
+  @include font-size.font-size(font-sizes.$fs-h6);
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-ntrl-15;
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: colors.$clr-ntrl-50;
+  }
+}

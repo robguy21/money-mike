@@ -1,0 +1,41 @@
+@use "../../tools/mixins/utilities/margin-padding";
+
+/*------------------------------------*\
+    PADDING UTILITIES
+\*------------------------------------*/
+//.u-padding--large               { @include u-padding--large;}
+//.u-padding--large--block-start  { @include u-padding--large--block-start;}
+//.u-padding--large--inline-end   { @include u-padding--large--inline-end;}
+//.u-padding--large--block-end    { @include u-padding--large--block-end;}
+//.u-padding--large--inline-start { @include u-padding--large--inline-start;}
+//.u-padding--large--block        { @include u-padding--large--block;}
+//.u-padding--large--inline       { @include u-padding--large--inline;}
+
+//.u-padding               { @include u-padding;}
+//.u-padding--block-start  { @include u-padding--block-start;}
+//.u-padding--inline-end   { @include u-padding--inline-end;}
+//.u-padding--block-end    { @include u-padding--block-end;}
+//.u-padding--inline-start { @include u-padding--inline-start;}
+//.u-padding--block        { @include u-padding--block;}
+//.u-padding--inline       { @include u-padding--inline;}
+
+//.u-padding--small               { @include u-padding--small;}
+//.u-padding--small--block-start  { @include u-padding--small--block-start;}
+.u-padding--small--inline-end   { @include margin-padding.u-padding--small--inline-end;}
+.u-padding--small--block-end    { @include margin-padding.u-padding--small--block-end;}
+//.u-padding--small--inline-start { @include u-padding--small--inline-start;}
+//.u-padding--small--block        { @include u-padding--small--block;}
+//.u-padding--small--inline       { @include u-padding--small--inline;}
+
+//.u-padding--none               { @include u-padding--none;}
+//.u-padding--none--block-start  { @include u-padding--none--block-start;}
+.u-padding--none--inline-end   { @include margin-padding.u-padding--none--inline-end;}
+//.u-padding--none--block-end    { @include u-padding--none--block-end;}
+//.u-padding--none--inline-start { @include u-padding--none--inline-start;}
+//.u-padding--none--block        { @include u-padding--none--block;}
+//.u-padding--none--inline       { @include u-padding--none--inline;}
+
+
+.u-pl--small {
+  padding-left: 8px;
+}

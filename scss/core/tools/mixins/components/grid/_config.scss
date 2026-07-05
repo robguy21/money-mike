@@ -1,0 +1,9 @@
+/*------------------------------------*\
+    GRID CONFIG
+\*------------------------------------*/
+$use-flexbox-grid: true !default;
+$use-legacy-grid: false !default;
+$grid-wrap-classname: gw !default;
+$grid-wrap-item-classname: g !default;
+$grid-item-unit-delimiter: -of- !default;
+$grid-item-gutter: 1.5rem !default;

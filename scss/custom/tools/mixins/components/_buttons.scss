@@ -1,0 +1,65 @@
+@use "../../../../core/tools/mixins/components/buttons" as core-buttons;
+@use "../../../../core/variables/font-sizes";
+@use "../../../../core/variables/colors" as core-colors;
+@use "../../../variables/colors";
+@use "../../../variables/typography";
+@use "../../../variables/custom-properties";
+
+/*------------------------------------*\
+    BUTTON MIXINS
+\*------------------------------------*/
+@mixin btn {
+  @include core-buttons.f8-btn;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: custom-properties.$app-border-radius;
+  font-size: font-sizes.$fs-h6;
+  font-weight: typography.$font-weight-medium;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+@mixin btn--primary {
+  background-color: colors.$clr-primary;
+  color: colors.$clr-ntrl-min;
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-primary-dk;
+  }
+
+  &:disabled,
+  &[disabled] {
+    background-color: colors.$clr-base-ltr;
+  }
+}
+
+@mixin btn--secondary {
+  background-color: colors.$clr-ntrl-15;
+  color: core-colors.$clr-base;
+
+  &:hover,
+  &:focus-visible {
+    background-color: colors.$clr-ntrl-20;
+  }
+}
+
+@mixin btn--outline {
+  background-color: transparent;
+  border: 1px solid colors.$clr-base-ltr;
+  color: core-colors.$clr-base;
+
+  &:hover,
+  &:focus-visible {
+    border-color: colors.$clr-primary;
+    color: colors.$clr-primary;
+  }
+}
+
+@mixin btn--block {
+  display: flex;
+  width: 100%;
+}

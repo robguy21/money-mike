@@ -1,0 +1,37 @@
+@use "../tools/mixins/utilities/focus";
+@use "../tools/mixins/utilities/transitions";
+@use "../tools/mixins/utilities/typography/link-states";
+
+/*------------------------------------*\
+    LINKS
+\*------------------------------------*/
+a {
+  @include transitions.u-link-transition;
+  @include link-states.u-fc--link-states(
+    var(--struct-clr-primary),
+    var(--struct-clr-primary-lt),
+    var(--struct-clr-primary-dk)
+  );
+  text-decoration: none;
+
+  @include focus.keyboard-focus-only() {
+    outline: 1px dotted;
+    outline-color: inherit;
+  }
+}
+
+.link--base {
+  @include transitions.u-link-transition;
+  @include link-states.u-fc--link-states(
+                  var(--struct-clr-base),
+                  var(--struct-clr-primary),
+                  var(--struct-clr-primary-dk)
+  );
+  text-decoration: none;
+
+  @include focus.keyboard-focus-only() {
+    outline: 1px dotted;
+    outline-color: inherit;
+  }
+
+}

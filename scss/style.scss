@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/*------------------------------------*\
+  STYLES ENTRYPOINT
+\*------------------------------------*/
+@use "core/support";
+@use "custom/support" as custom-support;
+
+@use "reset";
+
+@use "core/global";
+@use "custom/global" as custom-global;
+
+@use "custom";

@@ -1,0 +1,94 @@
+@use "config" as grid;
+
+/*------------------------------------*\
+    GRID ITEMS
+\*------------------------------------*/
+/**
+ * Base styles for a column in the grid
+ */
+%grid__item {
+  padding-inline-start: grid.$grid-item-gutter;
+  box-sizing: border-box;
+
+  @if grid.$use-legacy-grid {
+    width: 100%;
+
+    .oldie & {
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+}
+
+@mixin grid__item($classname: grid.$grid-wrap-item-classname) {
+  .#{$classname} { @extend %grid__item;}
+}
+
+@mixin create-grid-col-modifier($modifier, $classname: grid.$grid-wrap-item-classname) {
+  .#{$classname}--#{$modifier} {
+    @extend %grid__item;
+
+    @content;
+  }
+}
+
+@mixin grid__item--tall($classname: grid.$grid-wrap-item-classname) {
+  /**
+   * Allow the content of a column to occupy the full height of the
+   * column
+   *
+   * Child div must have flex: 1; or width: 100%; set to fill horizontal
+   * space
+   *
+   * Does not work for legacy browsers
+   */
+
+  @include create-grid-col-modifier('tall') {
+    @if grid.$use-flexbox-grid {
+      display: flex;
+    }
+  }
+}
+
+@mixin grid__item--auto($classname: grid.$grid-wrap-item-classname) {
+  /**
+   * Columns that automatically fill the remaining horizontal space
+   *
+   * To be used as is, without column width modifiers. Viewport modifiers will
+   * not override the effect of auto.
+   *
+   * Works mostly on <= IE9, mostly
+   * Requires .oldie class on html tag
+   */
+  @include create-grid-col-modifier('auto') {
+    @if grid.$use-legacy-grid {
+      .oldie & { display: table-cell;}
+    }
+
+    @if grid.$use-flexbox-grid {
+      flex: 1;
+    }
+  }
+}
+
+@mixin grid__item--shrink-wrap($classname: grid.$grid-wrap-item-classname) {
+  /**
+   * Columns that shrink wrap around content - ideal for .g--auto to occupy
+   * remaining space.
+   *
+   * To be used as is, without column width modifiers. Viewport modifiers will
+   * override shrink-wrap effect
+   *
+   * Works mostly on <= IE9, mostly
+   */
+  @include create-grid-col-modifier('shrink-wrap') {
+    width: auto;
+
+    @if grid.$use-legacy-grid {
+      .oldie & { display: table-cell;}
+    }
+
+    @if grid.$use-flexbox-grid {}
+  }
+}
+

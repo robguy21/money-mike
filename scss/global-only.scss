@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/*------------------------------------*\
+  GLOBAL ONLY STYLES ENTRYPOINT
+\*------------------------------------*/
+/**
+ * Import only global styles
+ *
+ * This is useful in scenarios where you may want to import styles common across
+ * your app, but without any styles specific to any particular component
+ *
+ * e.g.
+ * - rendering critical css
+ * - apps that use CSS-in-JS for components
+ */
+@use "core/support";
+@use "custom/support" as custom-support;
+
+@use "reset";
+
+@use "core/global";
+@use "custom/global" as custom-global;

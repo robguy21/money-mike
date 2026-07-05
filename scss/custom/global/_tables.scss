@@ -1,0 +1,29 @@
+@use "../variables/colors";
+@use "../variables/typography";
+@use "../../core/variables/font-sizes";
+
+/*------------------------------------*\
+    TABLES
+\*------------------------------------*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 0.5rem 0.75rem;
+  text-align: start;
+  border-block-end: 1px solid colors.$clr-base-ltr;
+}
+
+th {
+  font-size: font-sizes.$fs-milli;
+  font-weight: typography.$font-weight-semibold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: colors.$clr-base-lt;
+}
+
+td {
+  font-size: font-sizes.$fs-base;
+}

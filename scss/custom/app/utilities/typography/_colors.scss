@@ -1,0 +1,36 @@
+@use "../../../tools/mixins/utilities/typography/link-states";
+@use "../../../variables/colors";
+
+/*------------------------------------*\
+    FONT COLOR UTILITIES
+\*------------------------------------*/
+ .u-fc--base { color: var(--struct-clr-base);}
+ //a.u-fc--base,
+ //button.u-fc--base {
+   //@include u-fc--link-states(
+     //var(--struct-clr-base),
+     //var(--struct-clr-base-lt),
+     //var(--struct-clr-base-dk)
+   //);
+ //}
+
+.u-fc--primary { color: var(--struct-clr-primary);}
+ //a.u-fc--primary,
+ //button.u-fc--primary {
+   //@include u-fc--link-states(
+     //var(--struct-clr-primary),
+     //var(--struct-clr-primary-lt),
+     //var(--struct-clr-primary-dk)
+   //);
+ //}
+
+.u-fc--warning { color: var(--struct-clr-danger);}
+.u-fc--warning-dk { color: var(--struct-clr-danger-dk);}
+
+.u-fc--danger { color: var(--struct-clr-danger);}
+.u-fc--danger-dk { color: var(--struct-clr-danger-dk);}
+
+.u-fc--primary--hover {
+  transition: color ease-in-out 350ms;
+  @include link-states.u-fc--link-states(colors.$clr-primary, colors.$clr-primary-lt, colors.$clr-primary-dk)
+}

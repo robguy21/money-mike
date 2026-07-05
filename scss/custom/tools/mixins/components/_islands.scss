@@ -1,0 +1,51 @@
+@use "../../../../core/tools/functions/px-to-rem";
+@use "../../../../core/variables/font-sizes" as font-sizes2;
+@use "../../../../core/variables/layout";
+
+/*------------------------------------*\
+    $ISLAND MIXINS
+\*------------------------------------*/
+$island-pad-larger: px-to-rem.px-to-rem(54px); // $spacing-scalar * $fs-base * 4);
+$island-pad: px-to-rem.px-to-rem(layout.$spacing-scalar * font-sizes2.$fs-base * 4);
+$island-pad-small: px-to-rem.px-to-rem(24px); // $spacing-scalar * $fs-base * 1);
+$island-pad-smaller: px-to-rem.px-to-rem(16px); // $spacing-scalar * $fs-base * 1);
+
+@mixin island--block-start {
+  padding-block-start: $island-pad;
+}
+@mixin island--block-end {
+  padding-block-end: $island-pad;
+}
+
+@mixin island {
+  @include island--block-start;
+  @include island--block-end;
+}
+
+@mixin island--larger--block-start {
+  padding-block-start: $island-pad-larger;
+}
+@mixin island--larger--block-end {
+  padding-block-end: $island-pad-larger;
+}
+
+@mixin island--larger {
+  @include island--larger--block-start;
+  @include island--larger--block-end;
+}
+
+@mixin island--small--block-start { padding-block-start: $island-pad-small;}
+@mixin island--small--block-end { padding-block-end: $island-pad-small;}
+
+@mixin island--small {
+  @include island--small--block-start;
+  @include island--small--block-end;
+}
+
+@mixin island--smaller--block-start { padding-block-start: $island-pad-smaller;}
+@mixin island--smaller--block-end { padding-block-end: $island-pad-smaller;}
+
+@mixin island--smaller {
+  @include island--smaller--block-start;
+  @include island--smaller--block-end;
+}

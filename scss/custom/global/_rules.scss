@@ -1,0 +1,9 @@
+@use "../../core/tools/mixins/components/rules";
+
+/*------------------------------------*\
+    RULES
+\*------------------------------------*/
+hr {
+  @include rules.f8-rule;
+}
+

@@ -1,0 +1,113 @@
+@use "../../core/variables/colors";
+@use "../../core/variables/fonts";
+@use "../../core/variables/layout";
+@use "../variables/colors" as colors2;
+
+/*------------------------------------*\
+    DOCUMENT
+\*------------------------------------*/
+/**
+ * This files holds styles for the base elements of the page, generally body and
+ * html
+ */
+:root {
+  --struct-clr-base: #{colors.$clr-base};
+
+  --struct-clr-ntrl-min: #{colors2.$clr-ntrl-min};
+  --struct-clr-ntrl-max: #{colors2.$clr-ntrl-max};
+
+  --struct-clr-primary-dk: #{colors2.$clr-primary-dk};
+  --struct-clr-primary: #{colors2.$clr-primary};
+  --struct-clr-primary-lt: #{colors2.$clr-primary-lt};
+
+  --struct-clr-warning-dk: #{colors2.$clr-warning-dk};
+  --struct-clr-warning: #{colors2.$clr-warning};
+  --struct-clr-warning-lt: #{colors2.$clr-warning-lt};
+
+  --struct-clr-danger-dk: #{colors2.$clr-danger-dk};
+  --struct-clr-danger: #{colors2.$clr-danger};
+  --struct-clr-danger-lt: #{colors2.$clr-danger-lt};
+}
+
+/**
+ * Fix fatty fonts in Chrome and Firefox on Mac:
+ * http://maximilianhoffmann.com/posts/better-font-rendering-on-osx
+ */
+%fix-fatty-fonts {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/**
+ * Prevent Chrome and Safari from flashing when a user taps on mobile
+ */
+@if layout.$responsive {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  @extend %fix-fatty-fonts;
+}
+
+html,
+body {
+  background-color: colors2.$clr-ntrl-min;
+}
+
+body {
+  font-family: fonts.$font-base-stack;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  & > #root {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  main {
+    flex-grow: 1;
+    display: flex;
+    // max-height: 100vh;
+
+    // @TODO move this out somewhere as it's being used for more and more pages
+    &#feature-page,
+    &#app-screen-page {
+      background-color: colors2.$clr-base-ltst;
+    }
+
+    & > div {
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    &.fullscreen {
+      max-height: 100vh;
+
+      & > div {
+        padding: 0;
+      }
+    }
+  }
+}
+
+
+
+/**
+ * get 60fps scrolling by disabling pointer events:
+ * http://www.thecssninja.com/javascript/pointer-events-60fps
+ */
+.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}

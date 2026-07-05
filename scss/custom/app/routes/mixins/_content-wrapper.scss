@@ -1,0 +1,8 @@
+@mixin content-wrapper {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}
+.content-wrapper {
+  @include content-wrapper;
+}

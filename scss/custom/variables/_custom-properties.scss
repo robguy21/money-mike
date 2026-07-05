@@ -1,0 +1,17 @@
+/*------------------------------------*\
+    CUSTOM PROPERTIES
+\*------------------------------------*/
+//$custom-properties-prefix: struct-;
+
+$custom-acceptable-container-height: 980px;
+
+// Sizing
+$app-layout-min-height: 760px;
+
+// Borders
+$app-border-radius: 0.25rem;
+$app-border-radius-lg: 0.5rem;
+
+// Drop shadow
+$app-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+$app-filter-shadow: drop-shadow($app-box-shadow);

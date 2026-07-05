@@ -1,0 +1,13 @@
+/*------------------------------------*\
+    LISTS
+\*------------------------------------*/
+/**
+ * Remove vertical spacing from nested lists.
+ */
+li {
+  & > ul,
+  & > ol {
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}

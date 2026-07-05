@@ -1,0 +1,15 @@
+@use "../../../variables/colors";
+
+/*------------------------------------*\
+    BACKGROUND COLOR UTILITIES
+\*------------------------------------*/
+//.u-bgc--primary-dk { background-color: var(--struct-clr-primary-dk); }
+//.u-bgc--primary { background-color: var(--struct-clr-primary); }
+.u-bgc--primary-lt { background-color: colors.$clr-primary-lt; }
+.u-bgc--secondary-lt { background-color: colors.$clr-secondary-lt; }
+.u-bgc--tertiary-lt { background-color: colors.$clr-tertiary-lt; }
+.u-bgc--success { background-color: colors.$clr-success; }
+.u-bgc--warning { background-color: colors.$clr-warning; }
+.u-bgc--danger-dk { background-color: colors.$clr-danger-dk; }
+.u-bgc--danger { background-color: colors.$clr-danger; }
+.u-bgc--info { background-color: colors.$clr-info; }

@@ -1,0 +1,36 @@
+@use "../../tools/mixins/utilities/margin-padding";
+
+/*------------------------------------*\
+    MARGIN UTILITIES
+\*------------------------------------*/
+//.u-margin--large               { @include u-margin--large;}
+//.u-margin--large--block-start  { @include u-margin--large--block-start;}
+//.u-margin--large--inline-end   { @include u-margin--large--inline-end;}
+//.u-margin--large--block-end    { @include u-margin--large--block-end;}
+//.u-margin--large--inline-start { @include u-margin--large--inline-start;}
+//.u-margin--large--block        { @include u-margin--large--block;}
+//.u-margin--large--inline       { @include u-margin--large--inline;}
+
+//.u-margin               { @include u-margin;}
+//.u-margin--block-start  { @include u-margin--block-start;}
+//.u-margin--inline-end   { @include u-margin--inline-end;}
+.u-margin--block-end    { @include margin-padding.u-margin--block-end;}
+//.u-margin--inline-start { @include u-margin--inline-start;}
+//.u-margin--block        { @include u-margin--block;}
+//.u-margin--inline       { @include u-margin--inline;}
+
+//.u-margin--small               { @include u-margin--small;}
+//.u-margin--small--block-start  { @include u-margin--small--block-start;}
+//.u-margin--small--inline-end   { @include u-margin--small--inline-end;}
+.u-margin--small--block-end    { @include margin-padding.u-margin--small--block-end;}
+//.u-margin--small--inline-start { @include u-margin--small--inline-start;}
+//.u-margin--small--block        { @include u-margin--small--block;}
+//.u-margin--small--inline       { @include u-margin--small--inline;}
+
+.u-margin--none               { @include margin-padding.u-margin--none;}
+//.u-margin--none--block-start  { @include u-margin--none--block-start;}
+//.u-margin--none--inline-end   { @include u-margin--none--inline-end;}
+//.u-margin--none--block-end    { @include u-margin--none--block-end;}
+//.u-margin--none--inline-start { @include u-margin--none--inline-start;}
+//.u-margin--none--block        { @include u-margin--none--block;}
+//.u-margin--none--inline       { @include u-margin--none--inline;}

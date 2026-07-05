@@ -1,0 +1,52 @@
+@use "../../core/variables/font-sizes";
+@use "../variables/colors";
+@use "../variables/custom-properties";
+@use "../variables/forms";
+
+/*------------------------------------*\
+    FORMS
+\*------------------------------------*/
+label { cursor: pointer;}
+
+textarea { resize: vertical;}
+
+button, input, select, textarea { vertical-align: baseline;}
+
+input, input[type='search'], textarea { border-radius: 0;}
+
+input, textarea {
+  background-color: colors.$clr-ntrl-10;
+  border: 1px solid colors.$clr-base-ltr;
+  height: auto;         // don't apply heights set to inputs
+  line-height: normal;  // all browsers must use FF's UA !important for consistency
+  padding: forms.$form-input-padding;
+  width: 100%;
+  font-size: font-sizes.$fs-base;
+  border-radius: custom-properties.$app-border-radius;
+  transition: border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+}
+
+select,
+input[type="text"],
+input[type="password"] {
+  outline: none;
+  background-color: colors.$clr-ntrl-10;
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  font-size: font-sizes.$fs-base;
+  padding: forms.$form-input-padding;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: colors.$clr-primary;
+  box-shadow: 0 0 0 2px colors.$clr-primary-ltst;
+}
+
+input[type="radio"],
+input[type="checkbox"] { width: auto;}
+
+input[type="password"] { letter-spacing: .3em;} // space password to match actual text
+input[type="password"]::placeholder { letter-spacing: 0;}

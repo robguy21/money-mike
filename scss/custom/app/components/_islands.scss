@@ -1,0 +1,20 @@
+@use "../../tools/mixins/components/islands";
+
+/*------------------------------------*\
+		ISLANDS
+\*------------------------------------*/
+.island--block-start { @include islands.island--block-start;}
+.island--block-end { @include islands.island--block-end;}
+.island { @include islands.island;}
+
+.island--larger--block-start { @include islands.island--larger--block-start;}
+.island--larger--block-end { @include islands.island--larger--block-end;}
+.island--larger { @include islands.island--larger;}
+
+.island--small--block-start { @include islands.island--small--block-start;}
+.island--small--block-end { @include islands.island--small--block-end;}
+.island--small { @include islands.island--small;}
+
+.island--smaller--block-start { @include islands.island--smaller--block-start;}
+.island--smaller--block-end { @include islands.island--smaller--block-end;}
+.island--smaller { @include islands.island--smaller;}

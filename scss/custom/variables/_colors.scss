@@ -1,0 +1,81 @@
+@use "sass:color";
+@use "../../core/variables/colors";
+
+/*------------------------------------*\
+    COLOR VARIABLES — MONEY MIKE
+\*------------------------------------*/
+/**
+ * Money Mike is monochrome ink on warm paper, with saturated colour reserved
+ * for one job only: the money state (safe / careful / broke). Keep the brand
+ * quiet so the verdict can shout.
+ */
+colors.$clr-selection: #e7e3d7;
+
+colors.$clr-base : #17181c; // ink
+$clr-base-lt     : #4a4c55;
+$clr-base-ltr    : #d9d5c9; // hairline borders on paper
+$clr-base-ltst   : #efece3;
+$clr-base-dk     : #0d0e11;
+$clr-base-dkr    : #000000;
+
+// primary = ink. Buttons and links are monochrome and premium.
+$clr-primary      : #17181c;
+$clr-primary-lt   : color.scale($clr-primary, $lightness: 22%);
+$clr-primary-ltr  : color.scale($clr-primary, $lightness: 48%);
+$clr-primary-ltst : #e2ddd0; // subtle focus ring on paper
+$clr-primary-dk   : #000000;
+
+$clr-secondary      : #6b6558; // warm grey
+$clr-secondary-lt   : color.scale($clr-secondary, $lightness: 28%);
+$clr-secondary-ltr  : color.scale($clr-secondary, $lightness: 55%);
+$clr-secondary-ltst : #ece7db;
+$clr-secondary-dk   : color.scale($clr-secondary, $lightness: -22%);
+
+$clr-tertiary      : #4e5d72;
+$clr-tertiary-lt   : color.scale($clr-tertiary, $lightness: 28%);
+$clr-tertiary-ltr  : color.scale($clr-tertiary, $lightness: 55%);
+$clr-tertiary-ltst : #dbe3ee;
+$clr-tertiary-dk   : color.scale($clr-tertiary, $lightness: -22%);
+
+// neutrals — warm paper background, white surfaces
+$clr-ntrl-min : #f8f6f1; // body / paper
+$clr-ntrl-10  : #ffffff; // input + card surfaces
+$clr-ntrl-15  : #f1eee6;
+$clr-ntrl-20  : #e9e5da;
+$clr-ntrl-30  : #e0dbcd;
+$clr-ntrl-40  : #cfc9ba;
+$clr-ntrl-50  : #8a8577;
+$clr-ntrl-60  : #6b6558;
+$clr-ntrl-80  : #4a4c55;
+$clr-ntrl-90  : #17181c;
+$clr-ntrl-max : #000;
+
+// success — money green (safe)
+$clr-success      : #1a7f5a;
+$clr-success-lt   : color.scale($clr-success, $lightness: 24%);
+$clr-success-ltr  : color.scale($clr-success, $lightness: 55%);
+$clr-success-ltst : #d6efe4;
+$clr-success-dk   : #0f5c40;
+
+// warning — burnt amber (careful)
+$clr-warning       : #d1811b;
+$clr-warning-lt    : color.scale($clr-warning, $lightness: 24%);
+$clr-warning-ltr   : color.scale($clr-warning, $lightness: 52%);
+$clr-warning-ltst  : #fbecd3;
+$clr-warning-dk    : #97590a;
+
+// danger / error — red (broke)
+$clr-danger      : #ba1a1a;
+$clr-danger-lt   : color.scale($clr-danger, $lightness: 25%);
+$clr-danger-ltr  : color.scale($clr-danger, $lightness: 50%);
+$clr-danger-ltst : #ffdad6;
+$clr-danger-dk   : #93000a;
+$clr-danger-dkr  : #7a0007;
+
+// info
+$clr-info      : #0070ea;
+$clr-info-lt   : color.scale($clr-info, $lightness: 22%);
+$clr-info-ltr  : color.scale($clr-info, $lightness: 45%);
+$clr-info-ltst : #d8e2ff;
+$clr-info-dk   : #0059bb;
+$clr-info-dkr  : #004493;

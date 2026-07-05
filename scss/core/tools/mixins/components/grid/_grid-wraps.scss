@@ -1,0 +1,184 @@
+@use "config" as grid;
+
+/*------------------------------------*\
+    GRID WRAPS
+\*------------------------------------*/
+/**
+ * Fluid and nestable grid system, e.g.:
+ *
+   <div class="gw">
+       <div class="g  g-1-of-3">
+           <p>One third grid</p>
+       </div>
+       <div class="g  g-2-of-3">
+           <p>Two thirds grid</p>
+       </div>
+       <div class="g  g-1-of-2">
+           <p>One half grid</p>
+       </div>
+       <div class="g  g-1-of-4">
+           <p>One quarter grid</p>
+       </div>
+       <div class="g  g-1-of-4">
+           <p>One quarter grid</p>
+       </div>
+   </div>
+ *
+ * Demo: jsfiddle.net/inuitcss/CLYUC
+ *
+ */
+
+%grid-wrap {
+  list-style: none;
+  margin-block-end: 0;
+  margin-inline-start: -(grid.$grid-item-gutter);
+
+  @if grid.$use-legacy-grid {
+    .oldie & {
+      display: inline-block;
+      width: 100%;
+      width: calc(100% + #{grid.$grid-item-gutter} * 1em);
+    }
+  }
+
+  @if grid.$use-flexbox-grid {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+  }
+}
+
+@mixin grid-wrap($classname: grid.$grid-wrap-classname) {
+  .#{$classname} { @extend %grid-wrap;}
+}
+
+@mixin grid-wrap-modifier($modifier, $classname: grid.$grid-wrap-classname) {
+  .#{$classname}--#{$modifier} {
+    @content;
+  }
+}
+
+@mixin grid-wrap--reverse($classname: grid.$grid-wrap-classname) {
+  /**
+  * reversed grids
+  */
+  @include grid-wrap-modifier(reverse) {
+    @extend %grid-wrap;
+
+    @if grid.$use-legacy-grid {
+      .oldie & {
+        direction: rtl;
+        text-align: end;
+      }
+    }
+
+    @if grid.$use-flexbox-grid { flex-direction: row-reverse;}
+
+    & > %grid__item {
+      @if grid.$use-legacy-grid {
+        .oldie & {
+          direction: ltr;
+          text-align: start;
+        }
+      }
+    }
+  }
+}
+
+
+@mixin grid-wrap--center($classname: grid.$grid-wrap-classname) {
+  /**
+  * centered grids align grid items centrally without needing to use push or pull
+  * classes.
+  */
+  @include grid-wrap-modifier(center) {
+    @extend %grid-wrap;
+
+    @if grid.$use-legacy-grid {
+      .oldie & { text-align: center;}
+    }
+
+    @if grid.$use-flexbox-grid { justify-content: center;}
+
+    & > %grid__item {
+      @if grid.$use-legacy-grid {
+        .oldie & { text-align: start;}
+      }
+    }
+  }
+}
+
+@mixin grid-wrap--inline-end($classname: grid.$grid-wrap-classname) {
+  /**
+   * inline-end aligned grids (right-aligned in ltr layouts, else left-aligned)
+   */
+  @include grid-wrap-modifier(inline-end) {
+    @extend %grid-wrap;
+
+    @if grid.$use-legacy-grid {
+      .oldie & { text-align: end;}
+    }
+
+    @if grid.$use-flexbox-grid { justify-content: flex-end;}
+
+    & > %grid__item {
+      @if grid.$use-legacy-grid {
+        .oldie & { text-align: start;}
+      }
+    }
+  }
+}
+
+
+@mixin grid-wrap--middle($classname: grid.$grid-wrap-classname) {
+  /**
+   * middle aligned grids
+   */
+  @include grid-wrap-modifier(middle) {
+    @extend %grid-wrap;
+
+    @if grid.$use-flexbox-grid { align-items: center;}
+
+    & > %grid__item {
+      @if grid.$use-legacy-grid {
+        .oldie & { vertical-align: middle;}
+      }
+    }
+  }
+}
+
+
+@mixin grid-wrap--block-end($classname: grid.$grid-wrap-classname) {
+  /**
+   * bottom aligned grids
+   */
+  @include grid-wrap-modifier(block-end) {
+    @extend %grid-wrap;
+
+    @if grid.$use-flexbox-grid { align-items: flex-end;}
+
+    & > %grid__item {
+      @if grid.$use-legacy-grid {
+        .oldie & { vertical-align: bottom;}
+      }
+    }
+  }
+}
+
+
+@mixin grid-wrap-gutter-modifier($modifier, $size, $classname: grid.$grid-wrap-classname) {
+  @include grid-wrap-modifier($modifier, $classname: grid.$grid-wrap-classname) {
+    @extend %grid-wrap;
+    margin-inline-start: -#{$size};
+
+    & > %grid__item { padding-inline-start: $size;}
+  }
+}
+
+@mixin grid-wrap--no-gutter($classname: grid.$grid-wrap-classname) {
+  /**
+   * gutterless grids have all the properties of regular grids, minus any spacing.
+   */
+  @include grid-wrap-gutter-modifier('no-gutter', 0);
+}
+

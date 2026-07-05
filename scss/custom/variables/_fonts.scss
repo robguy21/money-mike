@@ -1,0 +1,31 @@
+@use "../../core/variables/fonts";
+
+/*------------------------------------*\
+    FONT VARIABLES
+\*------------------------------------*/
+
+
+/*------------------------------------*\
+    BASE FONT
+\*------------------------------------*/
+$font-base: (
+  family: "'Hanken Grotesk Variable'",
+);
+fonts.$font-base-stack:
+  "Hanken Grotesk Variable",
+  "Hanken Grotesk",
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  sans-serif;
+
+/*------------------------------------*\
+    ALTERNATE FONT
+\*------------------------------------*/
+//$font-alt: (
+  //family: "alt-font-name",
+  //path: "#{$asset-path}/fnt/alt-font-name",
+//);
+//$font-alt-filenames: (regular: "filename-without-extension");
+//$font-alt-stack: map-get($font-alt, 'family'), Arial, sans-serif;

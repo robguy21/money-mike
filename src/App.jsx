@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect} from 'react'
 import LandingPage from "./pages/LandingPage.jsx";
 
 function App() {
@@ -23,9 +23,9 @@ function App() {
     }, []);
 
   return (
-      <div>
+      <main>
           <LandingPage />
-      </div>
+      </main>
   )
 }
 

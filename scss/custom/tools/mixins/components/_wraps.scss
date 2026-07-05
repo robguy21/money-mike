@@ -1,0 +1,46 @@
+@use "sass:list";
+@use "../../../../core/tools/functions/px-to-rem";
+
+/*------------------------------------*\
+    WRAP MIXINS
+\*------------------------------------*/
+@use "sass:map";
+
+$wrap-configs: (
+  ("name": larger, "width": 100%, "type": modifier),
+  ("name": large, "width": 1280px, "type": modifier),
+  ("name": base, "width": 960px, "type": base),
+  ("name": small, "width": 720px, "type": modifier),
+);
+
+$wrap-base-configs: ();
+$wrap-modifier-configs: ();
+
+@each $config in $wrap-configs {
+  @if map.get($config, "type") == "base" {
+    $wrap-base-configs: list.append($wrap-base-configs, $config);
+  }
+}
+
+@each $config in $wrap-configs {
+  @if map.get($config, "type") == "modifier" {
+    $wrap-modifier-configs: list.append($wrap-modifier-configs, $config);
+  }
+}
+
+@mixin wrap-margin {
+  margin-inline-end: auto;
+  margin-inline-start: auto;
+}
+
+@mixin wrap-padding {
+  padding-inline-start: px-to-rem.px-to-rem(24px);
+  padding-inline-end: px-to-rem.px-to-rem(24px);
+}
+
+@mixin wrap-base {
+  display: table;
+  width: 100%;
+  @include wrap-margin;
+  @include wrap-padding;
+}

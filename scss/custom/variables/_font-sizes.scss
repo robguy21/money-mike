@@ -1,0 +1,25 @@
+@use "../../core/variables/font-sizes";
+
+/*------------------------------------*\
+    FONT SIZE VARIABLES
+\*------------------------------------*/
+
+/*------------------------------------*\
+    FONT SIZES
+\*------------------------------------*/
+font-sizes.$fs-base: 16px;
+
+font-sizes.$fs-giga:  96px;
+font-sizes.$fs-mega:  72px;
+font-sizes.$fs-kilo:  48px;
+
+font-sizes.$fs-h1:    32px;
+font-sizes.$fs-h2:    24px;
+font-sizes.$fs-h3:    20px;
+font-sizes.$fs-h4:    18px;
+font-sizes.$fs-h5:    16px;
+font-sizes.$fs-h6:    14px;
+
+font-sizes.$fs-milli: 12px;
+font-sizes.$fs-micro: 10px;
+font-sizes.$fs-nano:   8px;

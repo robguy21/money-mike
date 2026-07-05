@@ -1,0 +1,194 @@
+@use "../../../../core/variables/colors" as core-colors;
+@use "../../../variables/colors";
+@use "../../../variables/typography";
+@use "../../../variables/custom-properties";
+@use "../../../variables/layout";
+@use "../../../../core/variables/font-sizes";
+@use "../../../../core/tools/mixins/helpers/font-size";
+@use "../../../../core/tools/mixins/helpers/media-query";
+
+/*------------------------------------*\
+    DASHBOARD ROUTE
+\*------------------------------------*/
+$dash-unit: layout.$spacing-unit;
+
+.dashboard {
+  // shared monospace ledger face for every Rand figure below
+  --mm-mono: ui-monospace, "SF Mono", SFMono-Regular, "Roboto Mono", Menlo,
+    Consolas, monospace;
+
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 34rem;
+  margin-inline: auto;
+  padding: ($dash-unit * 3) ($dash-unit * 2) ($dash-unit * 6);
+
+  @include media-query.media-query(lap-and-up) {
+    padding: ($dash-unit * 5) ($dash-unit * 3) ($dash-unit * 8);
+  }
+}
+
+/*------------------------------------*\
+    VERDICT HERO — Mike reacts to your balance
+\*------------------------------------*/
+.dashboard__hero {
+  padding: ($dash-unit * 4) ($dash-unit * 3);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius-lg;
+  background-color: colors.$clr-ntrl-10;
+  text-align: center;
+  transition:
+    background-color 260ms ease,
+    border-color 260ms ease,
+    color 260ms ease;
+}
+
+.dashboard__eyebrow {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  margin: 0 0 ($dash-unit * 1.5);
+  font-weight: typography.$font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+}
+
+.dashboard__verdict {
+  @include font-size.font-size(font-sizes.$fs-h1);
+  margin: 0;
+  font-weight: typography.$font-weight-bold;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+
+  @include media-query.media-query(lap-and-up) {
+    @include font-size.font-size(font-sizes.$fs-kilo);
+  }
+}
+
+.dashboard__figure {
+  display: block;
+  margin: ($dash-unit * 3) 0 0;
+  font-family: var(--mm-mono);
+  font-size: clamp(2.75rem, 12vw, 4rem);
+  font-weight: typography.$font-weight-bold;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.dashboard__figure-label {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  display: block;
+  margin: ($dash-unit * 1.5) 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.65;
+}
+
+/**
+ * State washes. The whole hero changes complexion with how safe the balance is.
+ */
+.dashboard__hero[data-tier="great"],
+.dashboard__hero[data-tier="good"] {
+  border-color: colors.$clr-success;
+  background-color: colors.$clr-success-ltst;
+  color: colors.$clr-success-dk;
+}
+
+.dashboard__hero[data-tier="careful"],
+.dashboard__hero[data-tier="tight"] {
+  border-color: colors.$clr-warning;
+  background-color: colors.$clr-warning-ltst;
+  color: colors.$clr-warning-dk;
+}
+
+.dashboard__hero[data-tier="broke"] {
+  border-color: colors.$clr-danger;
+  background-color: colors.$clr-danger-ltst;
+  color: colors.$clr-danger-dk;
+}
+
+.dashboard__hero[data-tier="zero"] {
+  border-color: core-colors.$clr-base;
+  background-color: core-colors.$clr-base;
+  color: colors.$clr-ntrl-10;
+}
+
+/*------------------------------------*\
+    REALITY CHECK — the bank balance input
+\*------------------------------------*/
+.dashboard__reality {
+  margin-block-start: ($dash-unit * 4);
+}
+
+.dashboard__label {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  display: block;
+  margin-block-end: $dash-unit;
+  font-weight: typography.$font-weight-medium;
+  color: colors.$clr-base-lt;
+}
+
+.dashboard__reality-input {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: font-sizes.$fs-h3;
+  font-weight: typography.$font-weight-semibold;
+}
+
+.dashboard__stamp {
+  @include font-size.font-size(font-sizes.$fs-milli);
+  margin: $dash-unit 0 0;
+  color: colors.$clr-ntrl-50;
+}
+
+/*------------------------------------*\
+    SECTIONS
+\*------------------------------------*/
+.dashboard__section {
+  margin-block-start: ($dash-unit * 5);
+}
+
+.dashboard__section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: $dash-unit;
+  margin-block-end: ($dash-unit * 1.5);
+}
+
+.dashboard__section-title {
+  @include font-size.font-size(font-sizes.$fs-h4);
+  margin: 0;
+  font-weight: typography.$font-weight-bold;
+  letter-spacing: -0.01em;
+}
+
+.dashboard__section-total {
+  font-family: var(--mm-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: typography.$font-weight-semibold;
+  color: colors.$clr-base-lt;
+}
+
+.dashboard__section--past .dashboard__section-title {
+  color: colors.$clr-ntrl-50;
+}
+
+/*------------------------------------*\
+    END OF MONTH
+\*------------------------------------*/
+.dashboard__closer {
+  margin-block-start: ($dash-unit * 6);
+  padding-block-start: ($dash-unit * 4);
+  border-block-start: 1px solid colors.$clr-base-ltr;
+}
+
+.dashboard__closer-hint {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: 0 0 ($dash-unit * 2);
+  color: colors.$clr-base-lt;
+  text-align: center;
+}

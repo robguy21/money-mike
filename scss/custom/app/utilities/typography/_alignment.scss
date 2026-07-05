@@ -1,0 +1,19 @@
+/*------------------------------------*\
+    ALIGNMENT UTILITIES
+\*------------------------------------*/
+ .u-text--start   { text-align: start;}
+.u-text--center { text-align: center;}
+// .u-text--end { text-align: end;}
+
+
+.u-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.u-flex--space-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

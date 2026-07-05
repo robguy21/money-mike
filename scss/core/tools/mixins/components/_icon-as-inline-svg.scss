@@ -1,0 +1,44 @@
+/*------------------------------------*\
+    $INLINE SVG ICONS
+\*------------------------------------*/
+
+/*
+ * inline svg icons
+
+  i.icon
+    i.icon__inner
+      svg
+        use(href="my-icon-id")
+
+ */
+@mixin f8-inline-svg-icon {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+  @mixin f8-inline-svg-icon__inner {
+    display: inline;
+
+    & svg {
+      color: currentColor;
+      display: block;
+      fill: currentColor;
+      height: 1em;
+      width: 1em;
+
+      /**
+       * Fix href attribute in `use` element preventing navigation of parent
+       * anchor
+       */
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+      }
+    }
+  }

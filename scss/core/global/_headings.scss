@@ -1,0 +1,11 @@
+@use "../tools/mixins/utilities/font-sizes";
+
+/*------------------------------------*\
+    HEADINGS
+\*------------------------------------*/
+h1 { @include font-sizes.u-fs--h1;}
+h2 { @include font-sizes.u-fs--h2;}
+h3 { @include font-sizes.u-fs--h3;}
+h4 { @include font-sizes.u-fs--h4;}
+h5 { @include font-sizes.u-fs--h5;}
+h6 { @include font-sizes.u-fs--h6;}
