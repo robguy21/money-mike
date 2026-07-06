@@ -2,6 +2,7 @@ import {useEffect, useMemo, useState} from 'react';
 import ExpenseList from '../components/ExpenseList.jsx';
 import MonthHistory from '../components/MonthHistory.jsx';
 import MonthEndModal from '../components/MonthEndModal.jsx';
+import ReminderBanner from '../components/ReminderBanner.jsx';
 import {formatRand, formatStamp, verdictFor} from '../lib/verdict.js';
 import {
     loadState,
@@ -89,6 +90,8 @@ export default function LandingPage() {
                 <h1 className="dashboard__verdict">{verdict.title}</h1>
                 <span className="dashboard__figure">{formatRand(actualBalance)}</span>
             </div>
+
+            <ReminderBanner/>
 
             <div className="dashboard__reality">
                 <label className="dashboard__label" htmlFor="available-balance">

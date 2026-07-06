@@ -6,7 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 export default [
   { ignores: ['dist'] },
   {
-    files: ['public/OneSignalSDKWorker.js'],
+    files: ['public/push/onesignal/OneSignalSDKWorker.js'],
     languageOptions: {
       globals: globals.serviceworker,
     },

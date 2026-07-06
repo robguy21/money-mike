@@ -1,0 +1,47 @@
+@use "../../../core/variables/font-sizes";
+@use "../../../core/tools/mixins/helpers/font-size";
+@use "../../variables/colors";
+@use "../../variables/typography";
+@use "../../variables/layout";
+@use "../../variables/custom-properties";
+
+/*------------------------------------*\
+    REMINDER BANNER
+\*------------------------------------*/
+$rem-unit: layout.$spacing-unit;
+
+.reminder {
+  display: flex;
+  flex-direction: column;
+  gap: ($rem-unit * 2);
+  margin-block-start: ($rem-unit * 4);
+  padding: ($rem-unit * 2.5);
+  border: 1px solid colors.$clr-base-ltr;
+  border-radius: custom-properties.$app-border-radius;
+  background-color: colors.$clr-ntrl-10;
+
+  .btn {
+    align-self: stretch;
+  }
+}
+
+.reminder__title {
+  @include font-size.font-size(font-sizes.$fs-h5);
+  margin: 0;
+  font-weight: typography.$font-weight-semibold;
+}
+
+.reminder__hint {
+  @include font-size.font-size(font-sizes.$fs-h6);
+  margin: ($rem-unit * 0.5) 0 0;
+  color: colors.$clr-ntrl-50;
+}
+
+.reminder--blocked {
+  border-color: colors.$clr-warning;
+  background-color: colors.$clr-warning-ltst;
+
+  .reminder__hint {
+    color: colors.$clr-warning-dk;
+  }
+}

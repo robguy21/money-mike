@@ -9,6 +9,11 @@ export default defineConfig({
         VitePWA({
             registerType: 'autoUpdate',
             includeAssets: ['icon-192.png', 'icon-512.png'],
+            workbox: {
+                // Leave OneSignal's push worker + scope entirely to OneSignal.
+                globIgnores: ['**/push/onesignal/**'],
+                navigateFallbackDenylist: [/^\/push\//],
+            },
             manifest: {
                 name: 'Money Mike',
                 short_name: 'MoneyMike',
